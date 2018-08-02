@@ -1,25 +1,38 @@
 const Ingredient = require('./Ingredient');
 const Preference = require('./Preference');
-const Refrigerator = require('./Refrigerator');
+const Fridge = require('./Fridge');
 const RecipeHistory = require('./RecipeHistory');
 const Recipe = require('./Recipe');
+const SavedRecipe = require('./SavedRecipe');
 const User = require('./User');
 
 User.belongsToMany(Ingredient, { through: Preference });
 Ingredient.belongsToMany(User, { through: Preference });
 
-User.belongsToMany(Ingredient, { through: Refrigerator });
-Ingredient.belongsToMany(User, { through: Refrigerator });
+User.hasOne(Fridge);
+Fridge.belongsTo(User);
 
-User.belongsToMany(Recipe, { through: RecipeHistory });
-Recipe.belongsToMany(User, { through: RecipeHistory });
+Ingredient.hasMany(Fridge);
+Fridge.belongsTo(Ingredient);
 
-User.belongsToMany(Recipe, { through: 'favorite_recipe' });
-Recipe.belongsToMany(User, { through: 'favorite_recipe' });
+User.hasMany(RecipeHistory);
+RecipeHistory.belongsTo(User);
+
+Recipe.hasMany(RecipeHistory);
+RecipeHistory.belongsTo(Recipe);
+
+User.hasMany(SavedRecipe);
+SavedRecipe.belongsTo(User);
+
+Recipe.hasMany(SavedRecipe);
+SavedRecipe.belongsTo(Recipe);
 
 module.exports = {
   Ingredient,
   Preference,
-  Refrigerator,
+  Fridge,
+  Recipe,
+  RecipeHistory,
+  SavedRecipe,
   User
 };

@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Auth, UserHome } from './components';
+import {
+  Auth,
+  UserHome,
+  Fridge,
+  Recipes,
+  MyRecipes,
+  CookingHistory,
+  Preferences
+} from './components/index';
 import { me } from './store';
 
 class Routes extends Component {
@@ -14,7 +22,12 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
     return isLoggedIn ? (
       <Switch>
-        <Route path="/userhome" component={UserHome} />
+        <Route path="/fridge" component={Fridge} />
+        <Route path="/recipes" component={Recipes} />
+        <Route path="/myrecipes" component={MyRecipes} />
+        <Route path="/cookinghistory" component={CookingHistory} />
+        <Route path="/preferences" component={Preferences} />
+        <Route component={UserHome} />
       </Switch>
     ) : (
       <Switch>

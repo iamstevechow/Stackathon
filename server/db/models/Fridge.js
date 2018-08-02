@@ -1,8 +1,15 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Refrigerator = db.define('refrigerator', {
+const Fridge = db.define('fridge', {
   expirationDate: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
@@ -11,4 +18,4 @@ const Refrigerator = db.define('refrigerator', {
   }
 });
 
-module.exports = Refrigerator;
+module.exports = Fridge;

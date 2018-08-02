@@ -8,6 +8,17 @@ const Recipe = db.define('recipe', {
     validate: {
       notEmpty: true
     }
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  image: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 
