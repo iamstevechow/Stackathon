@@ -5,7 +5,7 @@ import { addToFridge } from '../store/fridge';
 import { fetchIngredients } from '../store/ingredients';
 import { Checkbox, Dropdown, Button } from 'semantic-ui-react';
 
-class AddToFridge extends React.Component {
+class AddToFridgeForm extends React.Component {
   constructor() {
     super();
     const today = new Date();
@@ -172,4 +172,4 @@ const mapDispatchToProps = dispatch => ({
   fetchIngredients: () => dispatch(fetchIngredients())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToFridge);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToFridgeForm);

@@ -45,7 +45,7 @@ class App extends React.Component {
           </Menu.Item>
           <Menu.Item
             onClick={() => {
-              history.push('/recipes');
+              history.push('/newrecipes');
               this.setState({ visible: false });
             }}
           >

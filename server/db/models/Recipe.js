@@ -3,11 +3,7 @@ const db = require('../db');
 
 const Recipe = db.define('recipe', {
   edamameId: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   },
   label: {
     type: Sequelize.STRING,

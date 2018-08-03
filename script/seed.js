@@ -9,6 +9,8 @@ const {
   SavedRecipe
 } = require('../server/db/models');
 
+const recipes = require('./recipes/recipeSeed');
+
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
@@ -19,78 +21,61 @@ async function seed() {
     User.create({ email: 'steve@steve.com', password: '123' })
   ]);
   console.log(`seeded ${users.length} users`);
-  const recipes = await Promise.all([
-    Recipe.create({
-      label: 'recipe one',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdn5X7GmXAvcPEbNsgQ2VPq_JU-B4AgrbP_GZovwa3UNJbQcWxpg',
-      edamameId: 'one'
-    }),
-    Recipe.create({
-      label: 'recipe two',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS40_uhQqsxXTTgX3V-N18ENFWml-ZTgx1zAhueNXlkTEK0eZeCLg',
-      edamameId: 'two'
-    }),
-    Recipe.create({
-      label: 'recipe three',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUhfxwbOFw4p0PnJ6r5qPHcc6EaRAXIoPJxGq4RHm9dnJe869DA',
-      edamameId: 'three'
-    })
-  ]);
-  console.log(`seeded ${recipes.length} users`);
+
+  await Promise.all(await Recipe.bulkCreate(recipes));
+  console.log(`seeded ${recipes.length} recipes`);
+
   const ingredients = await Promise.all([
     Ingredient.create({
       name: 'chicken',
       image:
-        'https://thumbs.dreamstime.com/b/roast-chicken-cartoon-drawing-isolated-white-38241272.jpg',
+        'https://imagesvc.timeincapp.com/v3/mm/image?url=http%3A%2F%2Fcdn-image.myrecipes.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2F1495472730%2FGettyImages-182184170.jpg%3Fitok%3Dl2saM5zn&w=700&q=85',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'beef',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://previews.123rf.com/images/magone/magone1511/magone151100055/49170157-fresh-raw-beef-steak-isolated-on-white-background-top-view.jpg',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'fish',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://static1.squarespace.com/static/56edee0f9f7266dd860d7fc2/t/58a937065016e11d7e579f76/1487484702789/?format=750w',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'pork',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://previews.123rf.com/images/olgna/olgna1409/olgna140900931/31592706-two-raw-pork-chops-on-white-background.jpg',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'onion',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://images-na.ssl-images-amazon.com/images/I/815kv1Ns16L._SY355_.jpg',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'pepper',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://cimg3.ibsrv.net/cimg/www.fitday.com/693x350_85-1/635/green-20pepper-20bell_000016163311_Small-106635.jpg',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'broccoli',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://www.cookforyourlife.org/wp-content/uploads/2015/08/shutterstock_294838064-min.jpg',
       expiration: '3'
     }),
     Ingredient.create({
       name: 'tomato',
       image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWQcrhq-PzEWSgzkPy8nDm4L2COY8TvATrMIwdnAH9FmRCO9atuw',
+        'https://www.sciencedaily.com/images/2017/07/170713153023_1_540x360.jpg',
       expiration: '3'
     })
   ]);
-  console.log(`seeded ${ingredients.length} users`);
+  console.log(`seeded ${ingredients.length} ingredients`);
   const fridges = await Promise.all([
     Fridge.create({
       expirationDate: new Date(),
@@ -105,7 +90,7 @@ async function seed() {
       quantity: 3
     })
   ]);
-  console.log(`seeded ${fridges.length} users`);
+  console.log(`seeded ${fridges.length} fridge items`);
   const savedRecipes = await Promise.all([
     SavedRecipe.create({
       userId: 3,
@@ -120,7 +105,7 @@ async function seed() {
       recipeId: 3
     })
   ]);
-  console.log(`seeded ${savedRecipes.length} users`);
+  console.log(`seeded ${savedRecipes.length} saved recipes`);
   console.log(`seeded successfully`);
 }
 

@@ -24,6 +24,18 @@ export const fetchFridge = id => async dispatch => {
   }
 };
 
+export const removeFromFridge = (arr, userId) => async dispatch => {
+  try {
+    const res = await axios.put('/api/fridge/remove', {
+      arr: arr,
+      userId: userId
+    });
+    dispatch(getFridge(res.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export default function(state = defaultFridge, action) {
   switch (action.type) {
     case GET_FRIDGE:

@@ -6,12 +6,13 @@ import {
   Auth,
   UserHome,
   Fridge,
-  Recipes,
+  NewRecipes,
   MyRecipes,
   CookingHistory,
   Preferences,
   AddToFridge,
-  AddToFridgeForm
+  AddToFridgeForm,
+  AddToFridgeBarcode
 } from './components/index';
 import { me } from './store';
 
@@ -25,12 +26,13 @@ class Routes extends Component {
     return isLoggedIn ? (
       <Switch>
         <Route path="/fridge" component={Fridge} />
-        <Route path="/recipes" component={Recipes} />
+        <Route path="/newrecipes" component={NewRecipes} />
         <Route path="/myrecipes" component={MyRecipes} />
         <Route path="/cookinghistory" component={CookingHistory} />
         <Route path="/preferences" component={Preferences} />
         <Route path="/addtofridge" component={AddToFridge} />
         <Route path="/fridgeform" component={AddToFridgeForm} />
+        <Route path="/fridgebarcode" component={AddToFridgeBarcode} />
         <Route component={UserHome} />
       </Switch>
     ) : (

@@ -15,6 +15,20 @@ router.put('/', async (req, res, next) => {
   }
 });
 
+router.put('/new', async (req, res, next) => {
+  try {
+    // req.body.userId is userId
+    // req.body.ingredients is array of ingredients (maybe names? or ids?)
+    // should be filled with fridge items from user
+
+    // need to find all recipes that match the ingredients most closely
+    const recipes = await Recipe.findAll();
+    res.json(recipes);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put('/edamame', async (req, res, next) => {
   try {
     const recipes = await axios.get(
@@ -23,6 +37,40 @@ router.put('/edamame', async (req, res, next) => {
       }&app_key=${process.env.EDAMAM_APP_KEY}`
     );
     res.json(recipes.data.hits);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/add', async (req, res, next) => {
+  try {
+    await SavedRecipe.create({
+      userId: req.body.userId,
+      recipeId: req.body.recipeId
+    });
+    const savedRecipes = await SavedRecipe.findAll({
+      where: { userId: req.body.userId },
+      include: [{ model: Recipe }]
+    });
+    res.json(savedRecipes);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/remove', async (req, res, next) => {
+  try {
+    const arr = req.body.arr;
+    const promiseArr = [];
+    arr.forEach(elem => {
+      promiseArr.push(SavedRecipe.destroy({ where: { id: elem } }));
+    });
+    await Promise.all(promiseArr);
+    const savedRecipes = await SavedRecipe.findAll({
+      where: { userId: req.body.userId },
+      include: [{ model: Recipe }]
+    });
+    res.json(savedRecipes);
   } catch (err) {
     next(err);
   }

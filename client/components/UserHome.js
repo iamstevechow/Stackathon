@@ -22,7 +22,7 @@ export const UserHome = props => {
         />
         <Card
           onClick={() => {
-            history.push('/recipes');
+            history.push('/newrecipes');
           }}
           fluid
           color="orange"

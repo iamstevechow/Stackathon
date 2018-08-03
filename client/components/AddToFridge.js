@@ -11,7 +11,7 @@ export const AddToFridge = () => {
       <Card.Group>
         <Card
           onClick={() => {
-            history.push('/');
+            history.push('/fridgebarcode');
           }}
           fluid
           color="red"
