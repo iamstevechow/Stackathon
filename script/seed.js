@@ -1,7 +1,13 @@
 'use strict';
 
 const db = require('../server/db');
-const { User, Ingredient, Fridge, Recipe } = require('../server/db/models');
+const {
+  User,
+  Ingredient,
+  Fridge,
+  Recipe,
+  SavedRecipe
+} = require('../server/db/models');
 
 async function seed() {
   await db.sync({ force: true });
@@ -15,19 +21,19 @@ async function seed() {
   console.log(`seeded ${users.length} users`);
   const recipes = await Promise.all([
     Recipe.create({
-      name: 'recipe one',
+      label: 'recipe one',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdn5X7GmXAvcPEbNsgQ2VPq_JU-B4AgrbP_GZovwa3UNJbQcWxpg',
       edamameId: 'one'
     }),
     Recipe.create({
-      name: 'recipe two',
+      label: 'recipe two',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS40_uhQqsxXTTgX3V-N18ENFWml-ZTgx1zAhueNXlkTEK0eZeCLg',
       edamameId: 'two'
     }),
     Recipe.create({
-      name: 'recipe three',
+      label: 'recipe three',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUhfxwbOFw4p0PnJ6r5qPHcc6EaRAXIoPJxGq4RHm9dnJe869DA',
       edamameId: 'three'
@@ -100,6 +106,21 @@ async function seed() {
     })
   ]);
   console.log(`seeded ${fridges.length} users`);
+  const savedRecipes = await Promise.all([
+    SavedRecipe.create({
+      userId: 3,
+      recipeId: 1
+    }),
+    SavedRecipe.create({
+      userId: 3,
+      recipeId: 2
+    }),
+    SavedRecipe.create({
+      userId: 3,
+      recipeId: 3
+    })
+  ]);
+  console.log(`seeded ${savedRecipes.length} users`);
   console.log(`seeded successfully`);
 }
 

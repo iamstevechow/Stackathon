@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchFridge } from '../store/fridge';
 import { FridgeCard } from './index';
+import { Button } from 'semantic-ui-react';
+import history from '../history';
 
 class Fridge extends Component {
   componentDidMount() {
@@ -11,8 +13,16 @@ class Fridge extends Component {
     return (
       <React.Fragment>
         <h2>My Fridge</h2>
+        <Button
+          onClick={() => {
+            history.push('/addtofridge');
+          }}
+          fluid
+        >
+          Add Item
+        </Button>
         {this.props.fridge.map(item => (
-          <FridgeCard key={item.ingredient.id} item={item} />
+          <FridgeCard key={item.id} item={item} />
         ))}
       </React.Fragment>
     );

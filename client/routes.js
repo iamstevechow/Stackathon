@@ -9,7 +9,9 @@ import {
   Recipes,
   MyRecipes,
   CookingHistory,
-  Preferences
+  Preferences,
+  AddToFridge,
+  AddToFridgeForm
 } from './components/index';
 import { me } from './store';
 
@@ -27,6 +29,8 @@ class Routes extends Component {
         <Route path="/myrecipes" component={MyRecipes} />
         <Route path="/cookinghistory" component={CookingHistory} />
         <Route path="/preferences" component={Preferences} />
+        <Route path="/addtofridge" component={AddToFridge} />
+        <Route path="/fridgeform" component={AddToFridgeForm} />
         <Route component={UserHome} />
       </Switch>
     ) : (

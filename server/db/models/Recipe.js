@@ -9,7 +9,7 @@ const Recipe = db.define('recipe', {
       notEmpty: true
     }
   },
-  name: {
+  label: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {

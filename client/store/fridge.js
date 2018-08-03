@@ -6,6 +6,15 @@ const defaultFridge = [];
 
 const getFridge = fridge => ({ type: GET_FRIDGE, fridge });
 
+export const addToFridge = info => async dispatch => {
+  try {
+    const res = await axios.put('/api/fridge/add', info);
+    dispatch(getFridge(res.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const fetchFridge = id => async dispatch => {
   try {
     const res = await axios.put('/api/fridge', { id });

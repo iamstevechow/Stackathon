@@ -10,3 +10,5 @@ export { default as RecipeCard } from './RecipeCard';
 export { default as CookingHistory } from './CookingHistory';
 export { default as Preferences } from './Preferences';
 export { default as OneRecipe } from './OneRecipe';
+export { default as AddToFridge } from './AddToFridge';
+export { default as AddToFridgeForm } from './AddToFridgeForm';

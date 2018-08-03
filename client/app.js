@@ -45,6 +45,15 @@ class App extends React.Component {
           </Menu.Item>
           <Menu.Item
             onClick={() => {
+              history.push('/recipes');
+              this.setState({ visible: false });
+            }}
+          >
+            <Icon name="remove from calendar" />
+            New Recipe
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
               history.push('/myrecipes');
               this.setState({ visible: false });
             }}

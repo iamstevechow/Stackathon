@@ -7,7 +7,7 @@ const RecipeCard = props => {
     <Card fluid>
       <Image src={props.item.recipe.image} />
       <Card.Content>
-        <Card.Header>{props.item.recipe.name}</Card.Header>
+        <Card.Header>{props.item.recipe.label}</Card.Header>
       </Card.Content>
       <Card.Content extra>Extra Info</Card.Content>
     </Card>

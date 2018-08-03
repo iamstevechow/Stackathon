@@ -21,7 +21,7 @@ class MyRecipes extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  recipes: state.savedRecipes || []
+  recipes: state.recipes.savedRecipes || []
 });
 
 const mapDispatchToProps = dispatch => ({
