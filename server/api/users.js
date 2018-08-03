@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { test } = require('../db/models');
+const { User } = require('../db/models');
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await test.findAll({
+    const users = await User.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
