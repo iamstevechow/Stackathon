@@ -45,23 +45,33 @@ class AddToFridgeVoice extends React.Component {
       }
     };
     recognition.onresult = event => {
-      // event is a SpeechRecognitionEvent object.
-      // It holds all the lines we have captured so far.
-      // We only need the current one.
       var current = event.resultIndex;
-
-      // Get a transcript of what was said.
       var transcript = event.results[current][0].transcript;
-      // Add the current transcript to the contents of our Note.
-
       let found = this.props.ingredients.filter(ingredient => {
         return ingredient.name === transcript;
       })[0];
       if (found) {
         this.setState({ text: transcript, ingredientId: found.id });
       } else {
-        this.setState({ text: 'unrecognized word, please try again' });
+        this.setState({ text: 'Please try again' });
       }
+      var msg = new SpeechSynthesisUtterance();
+      var voices = window.speechSynthesis.getVoices();
+      msg.voice = voices[10]; // Note: some voices don't support altering params
+      msg.voiceURI = 'native';
+      msg.volume = 1; // 0 to 1
+      msg.rate = 1; // 0.1 to 10
+      msg.pitch = 2; //0 to 2
+      msg.text = `${this.state.text}. ${
+        this.state.text !== 'Please try again' ? 'When will it expire?' : null
+      }`;
+      msg.lang = 'en-US';
+
+      msg.onend = function(e) {
+        console.log('Finished in ' + event.elapsedTime + ' seconds.');
+      };
+
+      speechSynthesis.speak(msg);
     };
     recognition.start();
   }
@@ -106,7 +116,7 @@ class AddToFridgeVoice extends React.Component {
       <React.Fragment>
         <h2>What do you want to add?</h2>
         <Button onClick={this.turnOnSpeech}>Click to Speak</Button>
-        <h4>You said: {this.state.text}</h4>
+        <h4>You said {this.state.text}</h4>
         <form
           onSubmit={event => {
             event.preventDefault();

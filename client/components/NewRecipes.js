@@ -40,6 +40,7 @@ class NewRecipes extends Component {
     const currentRecipe = this.props.recipes[this.state.current] || {};
     let button = this.state.button;
     if (
+      button === 'active' &&
       this.props.savedRecipes.some(
         recipe => recipe.recipeId === currentRecipe.id
       )
