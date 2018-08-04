@@ -3,13 +3,12 @@ import Quagga from 'quagga';
 
 export default class BarcodeScanner extends React.Component {
   componentDidMount() {
+    console.log('initialized');
     Quagga.init(
       {
         inputStream: {
           type: 'LiveStream',
           constraints: {
-            width: 640,
-            height: 480,
             facingMode: 'environment'
           }
         },
@@ -19,7 +18,17 @@ export default class BarcodeScanner extends React.Component {
         },
         numOfWorkers: 2,
         decoder: {
-          readers: ['code_128_reader']
+          readers: [
+            'code_128_reader',
+            'ean_reader',
+            'ean_8_reader',
+            'code_39_reader',
+            'code_39_vin_reader',
+            'codabar_reader',
+            'upc_reader',
+            'upc_e_reader',
+            'i2of5_reader'
+          ]
         },
         locate: true
       },

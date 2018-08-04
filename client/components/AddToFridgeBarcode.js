@@ -11,7 +11,7 @@ class AddToFridgeBarcode extends React.Component {
     super();
     this.state = {
       scanning: false,
-      results: []
+      results: { codeResult: {} }
     };
     this.scan = this.scan.bind(this);
     this.onDetected = this.onDetected.bind(this);
@@ -19,9 +19,8 @@ class AddToFridgeBarcode extends React.Component {
   scan() {
     this.setState({ scanning: !this.state.scanning });
   }
-
   onDetected(result) {
-    this.setState({ results: this.state.results.concat([result]) });
+    this.setState({ results: result });
   }
   render() {
     return (
@@ -29,11 +28,9 @@ class AddToFridgeBarcode extends React.Component {
         <button onClick={this.scan}>
           {this.state.scanning ? 'Stop Scanner' : 'Turn on Scanner'}
         </button>
-        <ul className="results">
-          {this.state.results.map(result => (
-            <BarcodeResult key={result.codeResult.code} result={result} />
-          ))}
-        </ul>
+
+        <BarcodeResult result={this.state.results} />
+
         {this.state.scanning ? (
           <BarcodeScanner onDetected={this.onDetected} />
         ) : null}
