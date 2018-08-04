@@ -107,7 +107,6 @@ class AddToFridgeVoice extends React.Component {
       <React.Fragment>
         <h2>What do you want to add?</h2>
         <Button onClick={this.turnOnSpeech}>Click to Speak</Button>
-
         <h4>You said: {this.state.text}</h4>
         <form
           onSubmit={event => {
@@ -129,7 +128,6 @@ class AddToFridgeVoice extends React.Component {
             history.push('/fridge');
           }}
         >
-          <input name="foodName" />
           <Dropdown
             name="quantity"
             placeholder="Select Quantity"

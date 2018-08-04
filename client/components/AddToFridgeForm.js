@@ -83,7 +83,6 @@ class AddToFridgeForm extends React.Component {
             history.push('/fridge');
           }}
         >
-          <input name="foodName" />
           <Dropdown
             placeholder="Select Ingredient"
             name="foodName"
