@@ -199,7 +199,19 @@ class AddToFridgeVoice extends React.Component {
         {this.state.dateRequest ? <h4>{this.state.dateRequest}</h4> : null}
         <form
           onSubmit={event => {
+            const simplifyDate = date => {
+              const day = date.getDate();
+              const month = date.getMonth();
+              const year = date.getFullYear();
+              return new Date(year, month, day);
+            };
             event.preventDefault();
+            const today = new Date();
+            const expiration = new Date(
+              this.state.expirationYear,
+              this.state.expirationMonth,
+              this.state.expirationDate
+            );
             this.state.useDefaultDate
               ? this.props.addToFridge({
                   userId: this.props.user.id,
@@ -210,9 +222,7 @@ class AddToFridgeVoice extends React.Component {
                   userId: this.props.user.id,
                   ingredientId: this.state.ingredientId,
                   quantity: this.state.quantity,
-                  expirationDate: this.state.expirationDate,
-                  expirationMonth: this.state.expirationMonth,
-                  expirationYear: this.state.expirationYear
+                  expirationTime: ((expiration- simplifyDate(today)) / 86400000)
                 });
             history.push('/fridge');
           }}

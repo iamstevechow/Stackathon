@@ -24,18 +24,11 @@ router.put('/', async (req, res, next) => {
 
 router.put('/add', async (req, res, next) => {
   try {
-    let expiration;
-    if (req.body.expirationDate) {
-      expiration = new Date(
-        req.body.expirationYear,
-        req.body.expirationMonth,
-        req.body.expirationDate
-      );
-    } else {
-      const ingredient = await Ingredient.findById(req.body.ingredientId);
-      let today = new Date();
-      expiration = addDays(today, ingredient.expiration);
-    }
+    const ingredient = await Ingredient.findById(req.body.ingredientId);
+    let today = new Date();
+    let expiration = (req.body.expirationTime || req.body.expirationTime===0)
+      ? addDays(today, req.body.expirationTime)
+      : addDays(today, ingredient.expiration);
     await Fridge.create({
       quantity: req.body.quantity,
       userId: req.body.userId,
