@@ -52,7 +52,6 @@ class AddToFridgeVoice extends React.Component {
 
       // Get a transcript of what was said.
       var transcript = event.results[current][0].transcript;
-      console.log(transcript);
       // Add the current transcript to the contents of our Note.
 
       let found = this.props.ingredients.filter(ingredient => {
