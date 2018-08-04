@@ -5,7 +5,7 @@ let scrape = async () => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.goto(
-    'https://www.allrecipes.com/recipes/86/world-cuisine/?internalSource=hub%20nav&referringContentType=recipe%20hub&linkName=hub%20nav%20daughter&clickId=hub%20nav%202'
+    'https://www.allrecipes.com/recipes/15172/fruits-and-vegetables/mushrooms/'
   );
   await page.waitFor(1000);
 
@@ -33,7 +33,7 @@ let scrape = async () => {
 };
 
 scrape().then(value => {
-  fs.writeFile('./script/recipes/world.json', JSON.stringify(value), err => {
+  fs.writeFile('./script/recipes/mushroom.json', JSON.stringify(value), err => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
