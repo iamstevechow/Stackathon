@@ -106,7 +106,7 @@ class AddToFridgeVoice extends React.Component {
       msg.pitch = 1; //0 to 2
       msg.text = `${this.state.text}. ${
         this.state.text !== 'Unrecognized. Please try again'
-          ? 'When will it expire? Or press submit to use default'
+          ? 'When will it expire? Press submit to use default'
           : ''
       }`;
       msg.lang = 'en-US';
@@ -141,7 +141,7 @@ class AddToFridgeVoice extends React.Component {
       msg.volume = 1; // 0 to 1
       msg.rate = 1; // 0.1 to 10
       msg.pitch = 1; //0 to 2
-      msg.text = `You said ${transcript}`;
+      msg.text = `You said ${transcript}. Press submit to confirm`;
       msg.lang = 'en-US';
 
       let repeat = false;
@@ -182,7 +182,15 @@ class AddToFridgeVoice extends React.Component {
       <React.Fragment>
         <h2>What do you want to add?</h2>
         <Button onClick={this.turnOnSpeech}>Click to Speak</Button>
-        <h4>You said {this.state.text}</h4>
+        {this.state.text ? (
+          <h4>
+            {this.state.text !== 'Unrecognized. Please try again'
+              ? `You said ${
+                  this.state.text
+                }. When will it expire? Press submit to use default`
+              : 'Unrecognized. Please try again'}
+          </h4>
+        ) : null}
         <form
           onSubmit={event => {
             event.preventDefault();
@@ -218,8 +226,13 @@ class AddToFridgeVoice extends React.Component {
           />
           <Checkbox
             onChange={(event, { checked }) => {
-              this.setState({ useDefaultDate: checked });
-              console.log(this.state);
+              const today = new Date();
+              this.setState({
+                useDefaultDate: checked,
+                expirationDate: today.getDate(),
+                expirationMonth: today.getMonth(),
+                expirationYear: today.getFullYear()
+              });
             }}
             checked={this.state.useDefaultDate}
             label="Use Default Expiration"

@@ -11,7 +11,7 @@ class AddToFridgeForm extends React.Component {
     const today = new Date();
     this.state = {
       ingredientId: null,
-      quantity: null,
+      quantity: 1,
       expirationDate: today.getDate(),
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
@@ -112,8 +112,13 @@ class AddToFridgeForm extends React.Component {
           />
           <Checkbox
             onChange={(event, { checked }) => {
-              this.setState({ useDefaultDate: checked });
-              console.log(this.state);
+              const today = new Date();
+              this.setState({
+                useDefaultDate: checked,
+                expirationDate: today.getDate(),
+                expirationMonth: today.getMonth(),
+                expirationYear: today.getFullYear()
+              });
             }}
             checked={this.state.useDefaultDate}
             label="Use Default Expiration"
