@@ -130,21 +130,11 @@ class AddToFridgeVoice extends React.Component {
       const current = event.resultIndex;
       const transcript = event.results[current][0].transcript;
       const splitTranscript = transcript.split(' ');
-      console.log(splitTranscript);
       let year = parseInt(splitTranscript[2], 10);
       let month = monthOptions.filter(option => {
         return option.text === splitTranscript[0];
       })[0];
       let date = parseInt(splitTranscript[1], 10);
-      const today = new Date();
-      if (month && date) {
-        this.setState({
-          expirationDate: date,
-          expirationMonth: month.value,
-          expirationYear: year || today.getFullYear()
-        });
-      }
-      console.log('month', month.text, 'date', date, 'year', year);
       const msg = new SpeechSynthesisUtterance();
       msg.voice = this.state.voice;
       msg.voiceURI = 'native';
@@ -154,11 +144,27 @@ class AddToFridgeVoice extends React.Component {
       msg.text = `You said ${transcript}`;
       msg.lang = 'en-US';
 
+      let repeat = false;
+      const today = new Date();
+      if (month && date) {
+        this.setState({
+          expirationDate: date,
+          expirationMonth: month.value,
+          expirationYear: year || today.getFullYear()
+        });
+      } else {
+        msg.text = 'Unrecognized Date. Please say Month, Date, Year';
+        repeat = true;
+      }
+
       msg.onend = function(e) {
         console.log('Finished in ' + event.elapsedTime + ' seconds.');
       };
 
       speechSynthesis.speak(msg);
+      if (repeat) {
+        this.turnOnDateSpeech();
+      }
     };
     recognition.start();
   }
