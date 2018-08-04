@@ -70,7 +70,8 @@ class AddToFridgeVoice extends React.Component {
       expirationDate: today.getDate(),
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
-      useDefaultDate: false
+      useDefaultDate: true,
+      dateRequest: ''
     };
     this.turnOnSpeech = this.turnOnSpeech.bind(this);
   }
@@ -115,6 +116,9 @@ class AddToFridgeVoice extends React.Component {
         console.log('Finished in ' + event.elapsedTime + ' seconds.');
         if (this.state.text !== 'Unrecognized. Please try again') {
           this.turnOnDateSpeech();
+          this.setState({
+            dateRequest: 'When will it expire? Press Submit to use default'
+          });
         } else {
           this.turnOnSpeech();
         }
@@ -148,6 +152,7 @@ class AddToFridgeVoice extends React.Component {
       const today = new Date();
       if (month && date) {
         this.setState({
+          useDefaultDate: false,
           expirationDate: date,
           expirationMonth: month.value,
           expirationYear: year || today.getFullYear()
@@ -157,14 +162,16 @@ class AddToFridgeVoice extends React.Component {
         repeat = true;
       }
 
-      msg.onend = function(e) {
+      msg.onend = e => {
         console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        if (repeat) {
+          this.setState({
+            dateRequest: 'Unrecognized Date. Please say Month, Date, Year  '
+          });
+          this.turnOnDateSpeech();
+        }
       };
-
       speechSynthesis.speak(msg);
-      if (repeat) {
-        this.turnOnDateSpeech();
-      }
     };
     recognition.start();
   }
@@ -185,12 +192,11 @@ class AddToFridgeVoice extends React.Component {
         {this.state.text ? (
           <h4>
             {this.state.text !== 'Unrecognized. Please try again'
-              ? `You said ${
-                  this.state.text
-                }. When will it expire? Press submit to use default`
+              ? `You said ${this.state.text}`
               : 'Unrecognized. Please try again'}
           </h4>
         ) : null}
+        {this.state.dateRequest ? <h4>{this.state.dateRequest}</h4> : null}
         <form
           onSubmit={event => {
             event.preventDefault();

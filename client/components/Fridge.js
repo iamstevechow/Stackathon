@@ -49,6 +49,9 @@ class Fridge extends Component {
             item={item}
           />
         ))}
+        {this.props.fridge.length ? null : (
+          <h3>Your fridge is empty! Add some items</h3>
+        )}
         {this.state.del.length > 0 ? (
           <Button
             onClick={async () => {
