@@ -10,7 +10,7 @@ export default class BarcodeScanner extends React.Component {
           constraints: {
             width: 640,
             height: 480,
-            facing: 'environment' // or user
+            facingMode: 'environment'
           }
         },
         locator: {

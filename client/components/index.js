@@ -13,3 +13,6 @@ export { default as OneRecipe } from './OneRecipe';
 export { default as AddToFridge } from './AddToFridge';
 export { default as AddToFridgeForm } from './AddToFridgeForm';
 export { default as AddToFridgeBarcode } from './AddToFridgeBarcode';
+export { default as BarcodeScanner } from './BarcodeScanner';
+export { default as BarcodeResult } from './BarcodeResult';
+export { default as AddToFridgeVoice } from './AddToFridgeVoice';

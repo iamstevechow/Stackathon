@@ -19,10 +19,18 @@ export const AddToFridge = () => {
         />
         <Card
           onClick={() => {
-            history.push('/fridgeform');
+            history.push('/fridgevoice');
           }}
           fluid
           color="orange"
+          header="Add Using Voice"
+        />
+        <Card
+          onClick={() => {
+            history.push('/fridgeform');
+          }}
+          fluid
+          color="yellow"
           header="Manual Entry"
         />
       </Card.Group>
