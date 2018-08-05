@@ -74,7 +74,7 @@ class AddToFridgeImage extends React.Component {
       expirationYear: today.getFullYear(),
       useDefaultDate: true,
       imgSrc: '',
-      text:''
+      text: ''
     };
     this.takePicture = this.takePicture.bind(this);
   }
@@ -84,10 +84,18 @@ class AddToFridgeImage extends React.Component {
   async takePicture() {
     const blob = await this.camera.capture();
     const compression = new ImageCompressor(blob, {
-      quality: 0.1,
+      quality: 0.2,
       success: async result => {
         const imgSrc = await URL.createObjectURL(result);
-        await this.props.addImage(imgSrc);
+        let file = new File([result], 'uploaded-image.jpg', {
+          type: 'image/jpeg',
+          lastModified: Date.now()
+        });
+        var objectURL = window.URL.createObjectURL(file);
+
+        await this.props.addImage(
+          'https://cdn.shopify.com/s/files/1/1078/0310/products/fruit-banana-dole-1_1024x1024.jpg?v=1500709708'
+        );
       },
       error(e) {
         console.log(e.message);
@@ -126,7 +134,8 @@ class AddToFridgeImage extends React.Component {
           </div>
         </Camera>
         {this.state.text ? <h3>{this.state.text}</h3> : null}
-        {this.props.image.length>0 ? <Dropdown
+        {this.props.image.length > 0 ? (
+          <Dropdown
             placeholder="Possible Options"
             name="foodName"
             fluid
@@ -135,12 +144,14 @@ class AddToFridgeImage extends React.Component {
             selection
             onChange={(event, { value }) => {
               this.setState({ text: value });
+              console.log(this.state)
             }}
             options={this.props.image.map(elem => ({
               value: elem.name,
               text: elem.name
             }))}
-          /> : null}
+          />
+        ) : null}
         <img
           id="blobImg"
           style={style.captureImage}
@@ -166,12 +177,12 @@ class AddToFridgeImage extends React.Component {
             this.state.useDefaultDate
               ? this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientName: this.props.text,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity
                 })
               : this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientName: this.props.text,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity,
                   expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
