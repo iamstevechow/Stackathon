@@ -15,7 +15,8 @@ class AddToFridgeForm extends React.Component {
       expirationDate: today.getDate(),
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
-      useDefaultDate: true
+      useDefaultDate: true,
+      text:''
     };
   }
   componentDidMount() {
@@ -58,6 +59,7 @@ class AddToFridgeForm extends React.Component {
     ) {
       dayArray.push({ value: i, text: i });
     }
+    const foodLabel = this.state.text
     return (
       <React.Fragment>
         <center style={{ marginBottom: '20px' }}>
@@ -81,29 +83,32 @@ class AddToFridgeForm extends React.Component {
             this.state.useDefaultDate
               ? this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity
                 })
               : this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity,
                   expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
             history.push('/fridge');
           }}
         >
+        <h3>Adding: {this.state.text}</h3>
           <Dropdown
             placeholder="Select Ingredient"
             name="foodName"
             fluid
             search
+            value={foodLabel}
             selection
+            allowAdditions
             onChange={(event, { value }) => {
-              this.setState({ ingredientId: value });
+              this.setState({ text: value });
             }}
             options={this.props.ingredients.map(elem => ({
-              value: elem.id,
+              value: elem.name,
               text: elem.name
             }))}
           />

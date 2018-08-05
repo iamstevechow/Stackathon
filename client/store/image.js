@@ -2,14 +2,15 @@ import axios from 'axios';
 
 const GET_IMAGE = 'GET_IMAGE';
 
-const defaultImage = '';
+const defaultImage = [];
 
 const getImage = image => ({ type: GET_IMAGE, image });
 
 export const addImage = img => async dispatch => {
   try {
     const res = await axios.put('/api/image/', { img });
-    dispatch(getImage(res.data));
+    const value = res.data[0].data.concepts
+    dispatch(getImage(value));
   } catch (error) {
     console.error(error);
   }

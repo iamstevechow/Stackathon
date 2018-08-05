@@ -24,7 +24,23 @@ router.put('/', async (req, res, next) => {
 
 router.put('/add', async (req, res, next) => {
   try {
-    const ingredient = await Ingredient.findById(req.body.ingredientId);
+    let ingredient;
+    if (req.body.ingredientId) {
+      ingredient = await Ingredient.findById(req.body.ingredientId);
+    } else {
+      ingredient = await Ingredient.findOne({
+        where: {
+          name: req.body.ingredientName
+        }
+      });
+    }
+    if (!ingredient) {
+      ingredient = await Ingredient.create({
+        name: req.body.ingredientName,
+        image: 'test',
+        expiration: 3
+      });
+    }
     let today = new Date();
     let expiration =
       req.body.expirationTime || req.body.expirationTime === 0
@@ -33,7 +49,7 @@ router.put('/add', async (req, res, next) => {
     await Fridge.create({
       quantity: req.body.quantity,
       userId: req.body.userId,
-      ingredientId: req.body.ingredientId,
+      ingredientId: ingredient.id,
       expirationDate: expiration
     });
     const fridge = await Fridge.findAll({

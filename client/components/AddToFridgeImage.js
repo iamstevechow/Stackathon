@@ -73,7 +73,8 @@ class AddToFridgeImage extends React.Component {
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
       useDefaultDate: true,
-      imgSrc: ''
+      imgSrc: '',
+      text:''
     };
     this.takePicture = this.takePicture.bind(this);
   }
@@ -124,6 +125,22 @@ class AddToFridgeImage extends React.Component {
             <div style={style.captureButton} />
           </div>
         </Camera>
+        {this.state.text ? <h3>{this.state.text}</h3> : null}
+        {this.props.image.length>0 ? <Dropdown
+            placeholder="Possible Options"
+            name="foodName"
+            fluid
+            search
+            value={this.state.text}
+            selection
+            onChange={(event, { value }) => {
+              this.setState({ text: value });
+            }}
+            options={this.props.image.map(elem => ({
+              value: elem.name,
+              text: elem.name
+            }))}
+          /> : null}
         <img
           id="blobImg"
           style={style.captureImage}
@@ -131,14 +148,6 @@ class AddToFridgeImage extends React.Component {
             this.img = img;
           }}
         />
-        {this.state.text ? (
-          <h4>
-            {this.state.text !== 'Unrecognized. Please try again'
-              ? `You said ${this.state.text}`
-              : 'Unrecognized. Please try again'}
-          </h4>
-        ) : null}
-        {this.state.dateRequest ? <h4>{this.state.dateRequest}</h4> : null}
         <form
           onSubmit={event => {
             const simplifyDate = date => {
@@ -157,12 +166,12 @@ class AddToFridgeImage extends React.Component {
             this.state.useDefaultDate
               ? this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.props.text,
                   quantity: this.state.quantity
                 })
               : this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.props.text,
                   quantity: this.state.quantity,
                   expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });

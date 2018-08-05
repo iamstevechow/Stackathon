@@ -95,14 +95,15 @@ class AddToFridgeVoice extends React.Component {
       if (pluralize.isPlural(transcript)) {
         transcript = pluralize.singular(transcript);
       }
-      let found = this.props.ingredients.filter(ingredient => {
-        return ingredient.name === transcript;
-      })[0];
-      if (found) {
-        this.setState({ text: transcript, ingredientId: found.id });
-      } else {
-        this.setState({ text: 'Unrecognized. Please try again' });
-      }
+      // let found = this.props.ingredients.filter(ingredient => {
+      //   return ingredient.name === transcript;
+      // })[0];
+      // if (found) {
+      //   this.setState({ text: transcript, ingredientId: found.id });
+      // } else {
+      //   this.setState({ text: 'Unrecognized. Please try again' });
+      // }
+      this.setState({ text: transcript });
       const msg = new SpeechSynthesisUtterance();
       if (this.state.voice) {
         msg.voice = this.state.voice;
@@ -229,12 +230,12 @@ class AddToFridgeVoice extends React.Component {
             this.state.useDefaultDate
               ? this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity
                 })
               : this.props.addToFridge({
                   userId: this.props.user.id,
-                  ingredientId: this.state.ingredientId,
+                  ingredientName: this.state.text,
                   quantity: this.state.quantity,
                   expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
