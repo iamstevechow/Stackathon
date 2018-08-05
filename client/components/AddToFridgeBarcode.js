@@ -24,7 +24,10 @@ class AddToFridgeBarcode extends React.Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>Add to Fridge</h2>
+        </center>
         <button onClick={this.scan}>
           {this.state.scanning ? 'Stop Scanner' : 'Turn on Scanner'}
         </button>
@@ -34,7 +37,7 @@ class AddToFridgeBarcode extends React.Component {
         {this.state.scanning ? (
           <BarcodeScanner onDetected={this.onDetected} />
         ) : null}
-      </div>
+      </React.Fragment>
     );
   }
 }

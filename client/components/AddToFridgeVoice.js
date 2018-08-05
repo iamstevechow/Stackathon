@@ -187,8 +187,15 @@ class AddToFridgeVoice extends React.Component {
     }
     return (
       <React.Fragment>
-        <h2>What do you want to add?</h2>
-        <Button onClick={this.turnOnSpeech}>Click to Speak</Button>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>Add to Fridge</h2>
+        </center>
+        <center style={{ marginBottom: '20px' }}>
+          <h3>What do you want to add?</h3>
+        </center>
+        <Button fluid onClick={this.turnOnSpeech}>
+          Click to Speak
+        </Button>
         {this.state.text ? (
           <h4>
             {this.state.text !== 'Unrecognized. Please try again'
@@ -222,7 +229,7 @@ class AddToFridgeVoice extends React.Component {
                   userId: this.props.user.id,
                   ingredientId: this.state.ingredientId,
                   quantity: this.state.quantity,
-                  expirationTime: ((expiration- simplifyDate(today)) / 86400000)
+                  expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
             history.push('/fridge');
           }}
@@ -254,18 +261,8 @@ class AddToFridgeVoice extends React.Component {
             label="Use Default Expiration"
           />
           <Dropdown
-            name="day"
-            disabled={this.state.useDefaultDate}
-            onChange={(event, { value }) => {
-              this.setState({ expirationDate: value });
-            }}
-            placeholder="Select Date"
-            value={this.state.expirationDate}
-            scrolling
-            options={dayArray}
-          />
-          <Dropdown
             name="month"
+            fluid
             disabled={this.state.useDefaultDate}
             onChange={(event, { value }) => {
               this.setState({ expirationMonth: value });
@@ -276,7 +273,20 @@ class AddToFridgeVoice extends React.Component {
             options={monthOptions}
           />
           <Dropdown
+            name="day"
+            fluid
+            disabled={this.state.useDefaultDate}
+            onChange={(event, { value }) => {
+              this.setState({ expirationDate: value });
+            }}
+            placeholder="Select Date"
+            value={this.state.expirationDate}
+            scrolling
+            options={dayArray}
+          />
+          <Dropdown
             name="year"
+            fluid
             disabled={this.state.useDefaultDate}
             onChange={(event, { value }) => {
               this.setState({ expirationYear: value });
@@ -289,7 +299,9 @@ class AddToFridgeVoice extends React.Component {
               text: elem
             }))}
           />
-          <Button type="submit">Submit</Button>
+          <Button fluid type="submit">
+            Submit
+          </Button>
         </form>
       </React.Fragment>
     );

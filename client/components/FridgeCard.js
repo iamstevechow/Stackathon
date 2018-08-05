@@ -55,17 +55,13 @@ class FridgeCard extends React.Component {
     return (
       <Swipeable onSwiped={this.swiped}>
         {this.state.delete ? (
-          <Card
-            style={{ height: '40vh', marginTop: '10px' }}
-            fluid
-            onClick={this.undo}
-          >
+          <Card style={{ marginTop: '10px' }} fluid onClick={this.undo}>
             <Card.Content>
               <Card.Header>Undo</Card.Header>
             </Card.Content>
           </Card>
         ) : (
-          <Card style={{ height: '40vh', marginTop: '10px' }} fluid>
+          <Card style={{ marginTop: '10px' }} fluid>
             <Image src={this.props.item.ingredient.image} />
             <Card.Content>
               <Card.Header>{this.props.item.ingredient.name}</Card.Header>

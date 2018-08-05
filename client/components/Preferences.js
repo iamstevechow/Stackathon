@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 
 class Preferences extends Component {
   render() {
-    return <div>Preferences Page</div>;
+    return (
+      <React.Fragment>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>Preferences</h2>
+        </center>
+      </React.Fragment>
+    );
   }
 }
 

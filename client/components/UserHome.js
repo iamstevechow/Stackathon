@@ -8,10 +8,11 @@ export const UserHome = props => {
   const { email } = props;
   return (
     <React.Fragment>
-      <center>
-        <h3>Welcome, {email}</h3>
+      <center style={{ marginBottom: '20px' }}>
+        <h2 style={{ marginTop: '0', marginBottom: '10px' }}>Welcome back,</h2>
+        <h3 style={{ marginTop: '0' }}>{email}</h3>
       </center>
-      <Card.Group>
+      <Card.Group style={{ height: '75vh' }}>
         <Card
           onClick={() => {
             history.push('/fridge');

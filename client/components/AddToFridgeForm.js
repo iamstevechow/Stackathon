@@ -60,8 +60,8 @@ class AddToFridgeForm extends React.Component {
     }
     return (
       <React.Fragment>
-        <center>
-          <h3>Add to Fridge</h3>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>Add to Fridge</h2>
         </center>
         <form
           onSubmit={event => {
@@ -88,7 +88,7 @@ class AddToFridgeForm extends React.Component {
                   userId: this.props.user.id,
                   ingredientId: this.state.ingredientId,
                   quantity: this.state.quantity,
-                  expirationTime: ((expiration- simplifyDate(today)) / 86400000)
+                  expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
             history.push('/fridge');
           }}
@@ -133,19 +133,9 @@ class AddToFridgeForm extends React.Component {
             checked={this.state.useDefaultDate}
             label="Use Default Expiration"
           />
-          <Dropdown
-            name="day"
-            disabled={this.state.useDefaultDate}
-            onChange={(event, { value }) => {
-              this.setState({ expirationDate: value });
-            }}
-            placeholder="Select Date"
-            defaultValue={this.state.expirationDate}
-            scrolling
-            options={dayArray}
-          />
-          <Dropdown
+                    <Dropdown
             name="month"
+            fluid
             disabled={this.state.useDefaultDate}
             onChange={(event, { value }) => {
               this.setState({ expirationMonth: value });
@@ -156,7 +146,20 @@ class AddToFridgeForm extends React.Component {
             options={monthOptions}
           />
           <Dropdown
+            name="day"
+            fluid
+            disabled={this.state.useDefaultDate}
+            onChange={(event, { value }) => {
+              this.setState({ expirationDate: value });
+            }}
+            placeholder="Select Date"
+            defaultValue={this.state.expirationDate}
+            scrolling
+            options={dayArray}
+          />
+          <Dropdown
             name="year"
+            fluid
             disabled={this.state.useDefaultDate}
             onChange={(event, { value }) => {
               this.setState({ expirationYear: value });
@@ -169,7 +172,7 @@ class AddToFridgeForm extends React.Component {
               text: elem
             }))}
           />
-          <Button type="submit">Submit</Button>
+          <Button fluid type="submit">Submit</Button>
         </form>
       </React.Fragment>
     );

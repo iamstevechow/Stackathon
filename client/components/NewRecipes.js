@@ -9,6 +9,8 @@ import {
 import { fetchFridge } from '../store/fridge';
 import { OneRecipe } from './index';
 import Swipeable from 'react-swipeable';
+import history from '../history';
+import { Button } from 'semantic-ui-react';
 
 class NewRecipes extends Component {
   constructor() {
@@ -17,6 +19,7 @@ class NewRecipes extends Component {
     this.swipingLeft = this.swipingLeft.bind(this);
     this.swiped = this.swiped.bind(this);
     this.changeButtonState = this.changeButtonState.bind(this);
+    this.noQuery = false;
   }
   swipingLeft(e, absX) {
     // console.log("You're Swiping to the Left...", e, absX);
@@ -48,9 +51,7 @@ class NewRecipes extends Component {
         q: this.props.fridge[0].ingredient.name
       });
     } else {
-      await this.props.edamameRecipes({
-        q: ''
-      });
+      this.setState({ noQuery: true });
     }
   }
   componentWillUnmount() {
@@ -73,8 +74,23 @@ class NewRecipes extends Component {
     }
     return (
       <React.Fragment>
-        <h2>New Recipes</h2>
-        {currentRecipe.recipe ? (
+        <center style={{ marginBottom: '20px' }}>
+          <h2>New Recipes</h2>
+        </center>
+        {this.state.noQuery ? (
+          <React.Fragment>
+            <h3>Please add something to your fridge before viewing recipes.</h3>
+            <Button
+              fluid
+              type="submit"
+              onClick={() => {
+                history.push('/addtofridge');
+              }}
+            >
+              Add Something to your Fridge
+            </Button>
+          </React.Fragment>
+        ) : currentRecipe.recipe ? (
           <Swipeable onSwipingLeft={this.swipingLeft} onSwiped={this.swiped}>
             <OneRecipe
               item={currentRecipe.recipe}

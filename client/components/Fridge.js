@@ -32,7 +32,14 @@ class Fridge extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2>My Fridge</h2>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>My Fridge</h2>
+        </center>
+        {this.props.fridge.length ? null : (
+          <center style={{ marginTop: '20px', marginBottom: '20px' }}>
+            <h3>Your fridge is empty!</h3>
+          </center>
+        )}
         <Button
           style={{ marginTop: '10px' }}
           onClick={() => {
@@ -42,6 +49,18 @@ class Fridge extends Component {
         >
           Add Item
         </Button>
+        {this.props.fridge.length ? (
+          <Button
+            style={{ marginTop: '10px' }}
+            fluid
+            type="submit"
+            onClick={() => {
+              history.push('/newrecipes');
+            }}
+          >
+            Check out some recipes!
+          </Button>
+        ) : null}
         {this.props.fridge.map(item => (
           <FridgeCard
             addToDelete={this.addToDelete}
@@ -50,9 +69,6 @@ class Fridge extends Component {
             item={item}
           />
         ))}
-        {this.props.fridge.length ? null : (
-          <h3>Your fridge is empty! Add some items</h3>
-        )}
         {this.state.del.length > 0 ? (
           <Button
             style={{ marginTop: '10px' }}

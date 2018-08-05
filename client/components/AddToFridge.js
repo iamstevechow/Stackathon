@@ -5,11 +5,12 @@ import history from '../history';
 export const AddToFridge = () => {
   return (
     <React.Fragment>
-      <center>
-        <h3>Add to Fridge</h3>
+      <center style={{ marginBottom: '20px' }}>
+        <h2>Add to Fridge</h2>
       </center>
       <Card.Group>
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/fridgebarcode');
           }}
@@ -18,6 +19,7 @@ export const AddToFridge = () => {
           header="Add Using Barcode"
         />
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/fridgevoice');
           }}
@@ -26,6 +28,7 @@ export const AddToFridge = () => {
           header="Add Using Voice"
         />
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/fridgeform');
           }}

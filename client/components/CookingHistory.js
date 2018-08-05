@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 
 class CookingHistory extends Component {
   render() {
-    return <div>Cooking History Page</div>;
+    return (
+      <React.Fragment>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>Cooking History</h2>
+        </center>
+      </React.Fragment>
+    );
   }
 }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchRecipes, removeFromRecipes } from '../store/recipes';
 import { RecipeCard } from './index';
 import { Button } from 'semantic-ui-react';
+import history from '../history';
 
 class MyRecipes extends Component {
   constructor() {
@@ -31,7 +32,25 @@ class MyRecipes extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2>My Recipes</h2>
+        <center style={{ marginBottom: '20px' }}>
+          <h2>My Recipes</h2>
+        </center>
+        {this.props.recipes.length ? null : (
+          <React.Fragment>
+            <center style={{ marginBottom: '20px' }}>
+              <h3>You have no saved recipes!</h3>
+            </center>
+            <Button
+              fluid
+              type="submit"
+              onClick={() => {
+                history.push('/newrecipes');
+              }}
+            >
+              Check out some new recipes!
+            </Button>
+          </React.Fragment>
+        )}
         {this.props.recipes.map(item => (
           <RecipeCard
             addToDelete={this.addToDelete}

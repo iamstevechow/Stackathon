@@ -45,7 +45,12 @@ const OneRecipe = props => {
       <Image src={props.item.image} />
       <h2>{props.item.label}</h2>
       {buttonState(props.button)}
-      <a target="_blank" rel="noopener noreferrer" href={props.item.url}>
+      <a
+        style={{ marginTop: '10px' }}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={props.item.url}
+      >
         <Button fluid type="submit">
           Cook Now!
         </Button>
