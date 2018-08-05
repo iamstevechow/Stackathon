@@ -8,9 +8,9 @@ const defaultRecipes = {
   savedRecipes: []
 };
 
-const setNewRecipes = recipes => ({ type: SET_NEW_RECIPES, recipes });
+export const setNewRecipes = recipes => ({ type: SET_NEW_RECIPES, recipes });
 
-const getRecipes = recipes => ({ type: GET_RECIPES, recipes });
+export const getRecipes = recipes => ({ type: GET_RECIPES, recipes });
 
 export const edamameRecipes = request => async dispatch => {
   try {

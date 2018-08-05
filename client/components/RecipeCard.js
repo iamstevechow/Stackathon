@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 import Swipeable from 'react-swipeable';
 
 class RecipeCard extends React.Component {
@@ -24,18 +24,32 @@ class RecipeCard extends React.Component {
     return (
       <Swipeable onSwiped={this.swiped}>
         {this.state.delete ? (
-          <Card fluid onClick={this.undo}>
+          <Card
+            style={{ height: '50vh', marginTop: '10px' }}
+            fluid
+            onClick={this.undo}
+          >
             <Card.Content>
               <Card.Header>Undo</Card.Header>
             </Card.Content>
           </Card>
         ) : (
-          <Card fluid>
+          <Card style={{ height: '50vh', marginTop: '10px' }} fluid>
             <Image src={this.props.item.recipe.image} />
             <Card.Content>
               <Card.Header>{this.props.item.recipe.label}</Card.Header>
             </Card.Content>
-            <Card.Content extra>Extra Info</Card.Content>
+            <Card.Content extra>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={this.props.item.recipe.url}
+              >
+                <Button fluid type="submit">
+                  Cook Now!
+                </Button>
+              </a>
+            </Card.Content>
           </Card>
         )}
       </Swipeable>

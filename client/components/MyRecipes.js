@@ -42,6 +42,7 @@ class MyRecipes extends Component {
         ))}
         {this.state.del.length > 0 ? (
           <Button
+            style={{ marginTop: '10px' }}
             onClick={async () => {
               await this.props.removeFromRecipes(
                 this.state.del,

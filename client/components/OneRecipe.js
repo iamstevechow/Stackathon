@@ -11,9 +11,15 @@ const OneRecipe = props => {
           <Button
             onClick={() => {
               props.changeButtonState('loading');
+              const uri = props.item.uri;
+              const edamameIdIndex = uri.indexOf('recipe');
+              const edamameId = uri.slice(edamameIdIndex + 7);
               props.addToRecipes({
                 userId: props.user.id,
-                recipeId: props.item.id
+                edamameId: edamameId,
+                label: props.item.label,
+                image: props.item.image,
+                url: props.item.url
               });
               setTimeout(() => {
                 props.changeButtonState('added');
@@ -35,10 +41,15 @@ const OneRecipe = props => {
     }
   };
   return (
-    <Card fluid>
+    <Card style={{ height: '80vh' }} fluid>
       <Image src={props.item.image} />
       <h2>{props.item.label}</h2>
       {buttonState(props.button)}
+      <a target="_blank" rel="noopener noreferrer" href={props.item.url}>
+        <Button fluid type="submit">
+          Cook Now!
+        </Button>
+      </a>
     </Card>
   );
 };

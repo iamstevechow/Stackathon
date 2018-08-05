@@ -34,6 +34,7 @@ class Fridge extends Component {
       <React.Fragment>
         <h2>My Fridge</h2>
         <Button
+          style={{ marginTop: '10px' }}
           onClick={() => {
             history.push('/addtofridge');
           }}
@@ -54,6 +55,7 @@ class Fridge extends Component {
         )}
         {this.state.del.length > 0 ? (
           <Button
+            style={{ marginTop: '10px' }}
             onClick={async () => {
               await this.props.removeFromFridge(
                 this.state.del,

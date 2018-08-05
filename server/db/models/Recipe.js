@@ -15,6 +15,13 @@ const Recipe = db.define('recipe', {
   image: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 });
 

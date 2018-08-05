@@ -9,8 +9,6 @@ const {
   SavedRecipe
 } = require('../server/db/models');
 
-const recipes = require('./recipes/recipeSeed');
-
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
@@ -22,7 +20,32 @@ async function seed() {
   ]);
   console.log(`seeded ${users.length} users`);
 
-  await Promise.all(await Recipe.bulkCreate(recipes));
+  // const recipes = require('./recipes/recipeSeed');
+  // await Promise.all(await Recipe.bulkCreate(recipes));
+  const recipes = await Promise.all([
+    Recipe.create({
+      edamameId: '7bf4a371c6884d809682a72808da7dc2',
+      label: 'Teriyaki Chicken',
+      image:
+        'https://www.edamam.com/web-img/262/262b4353ca25074178ead2a07cdf7dc1.jpg',
+      url:
+        'http://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/'
+    }),
+    Recipe.create({
+      edamameId: 'e29feeb250c3cc0f6eb487b7cae5d8b1',
+      label: 'Chicken Piccata',
+      image:
+        'https://www.edamam.com/web-img/93e/93e5e22c8792bfbc9fa3654207347c9c.jpg',
+      url: 'http://leitesculinaria.com/5354/recipes-chicken-piccata.html'
+    }),
+    Recipe.create({
+      edamameId: 'ffb72e7b53285253a66b46255ce261c8',
+      label: 'Fish Veracruz',
+      image:
+        'https://www.edamam.com/web-img/3b8/3b8e16423e91011abe89322659ecf908.jpg',
+      url: 'http://norecipes.com/fish-veracruz-recipe-pescado-veracruzana'
+    })
+  ]);
   console.log(`seeded ${recipes.length} recipes`);
 
   const ingredients = await Promise.all([
