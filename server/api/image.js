@@ -16,7 +16,6 @@ router.put('/', async (req, res, next) => {
       config.secret +
       '@api.imagga.com/v1/tagging?url=' +
       req.body.img;
-    console.log(uploadImgUrl);
     let response = await axios.get(uploadImgUrl);
     res.send(response.data);
   } catch (err) {

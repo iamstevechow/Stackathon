@@ -85,7 +85,7 @@ class AddToFridgeImage extends React.Component {
     const compression = new ImageCompressor(blob, {
       quality: 0.1,
       success: async result => {
-        const imgSrc = await URL.createObjectURL(blob);
+        const imgSrc = await URL.createObjectURL(result);
         await this.props.addImage(imgSrc);
       },
       error(e) {
@@ -124,9 +124,6 @@ class AddToFridgeImage extends React.Component {
             <div style={style.captureButton} />
           </div>
         </Camera>
-        {this.props.image.results ? (
-          <h3>{this.props.image.results[0].tags[0].tag}</h3>
-        ) : null}
         <img
           id="blobImg"
           style={style.captureImage}
