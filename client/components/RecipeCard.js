@@ -24,13 +24,13 @@ class RecipeCard extends React.Component {
     return (
       <Swipeable onSwiped={this.swiped}>
         {this.state.delete ? (
-          <Card style={{ marginTop: '10px' }} fluid onClick={this.undo}>
+          <Card style={{ marginTop: '20px' }} fluid onClick={this.undo}>
             <Card.Content>
               <Card.Header>Undo</Card.Header>
             </Card.Content>
           </Card>
         ) : (
-          <Card style={{ marginTop: '10px' }} fluid>
+          <Card style={{ marginTop: '20px' }} fluid>
             <Image src={this.props.item.recipe.image} />
             <Card.Content>
               <Card.Header>{this.props.item.recipe.label}</Card.Header>

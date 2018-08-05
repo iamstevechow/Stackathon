@@ -6,15 +6,20 @@ import { Icon, Menu } from 'semantic-ui-react';
 const Navigation = props => {
   const handleClick = props.handleClick;
   return props.isLoggedIn ? (
-    <Menu>
+    <Menu secondary>
       <Menu.Item onClick={props.handleMenuClick}>
         <Icon name="bars" />
       </Menu.Item>
+      <h2 style={{ fontFamily: 'cursive' }}>Sous</h2>
       <div className="right menu">
         <Menu.Item onClick={handleClick}>Log Out</Menu.Item>
       </div>
     </Menu>
-  ) : null;
+  ) : (
+    <Menu secondary>
+      <h2 style={{ fontFamily: 'cursive' }}>Sous</h2>
+    </Menu>
+  );
 };
 
 const mapState = state => {

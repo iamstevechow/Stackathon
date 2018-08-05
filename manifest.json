@@ -1,6 +1,6 @@
 {
-  "short_name": "App",
-  "name": "Stackathon App",
+  "short_name": "Sous",
+  "name": "Sous",
   "icons": [
     {
       "src": "/images/icons-192.png",
@@ -14,7 +14,7 @@
     }
   ],
   "start_url": "https://stackathonapp.herokuapp.com/",
-  "background_color": "#3367D6",
+  "background_color": "#528",
   "display": "standalone",
   "scope": "/maps/",
   "theme_color": "#3367D6"

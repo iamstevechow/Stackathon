@@ -5,15 +5,22 @@ import { Card } from 'semantic-ui-react';
 import history from '../history';
 
 export const UserHome = props => {
-  const { email } = props;
+  const { user } = props;
   return (
     <React.Fragment>
       <center style={{ marginBottom: '20px' }}>
-        <h2 style={{ marginTop: '0', marginBottom: '10px' }}>Welcome back,</h2>
-        <h3 style={{ marginTop: '0' }}>{email}</h3>
+        <h3
+          style={{
+            marginTop: '0',
+            marginBottom: '10px'
+          }}
+        >
+          Welcome back, {user.firstName}
+        </h3>
       </center>
-      <Card.Group style={{ height: '75vh' }}>
+      <Card.Group style={{ height: '40vh' }}>
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/fridge');
           }}
@@ -22,6 +29,7 @@ export const UserHome = props => {
           header="Check out my Fridge"
         />
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/newrecipes');
           }}
@@ -30,6 +38,7 @@ export const UserHome = props => {
           header="Give me a Recipe"
         />
         <Card
+          style={{ height: '10vh' }}
           onClick={() => {
             history.push('/myrecipes');
           }}
@@ -37,6 +46,8 @@ export const UserHome = props => {
           color="yellow"
           header="My Saved Recipes"
         />
+      </Card.Group>
+      <Card.Group style={{ height: '20vh' }} itemsPerRow={2}>
         <Card
           onClick={() => {
             history.push('/cookinghistory');
@@ -60,7 +71,7 @@ export const UserHome = props => {
 
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user
   };
 };
 

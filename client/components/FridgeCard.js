@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Dropdown, Grid} from 'semantic-ui-react';
 import Swipeable from 'react-swipeable';
 
 class FridgeCard extends React.Component {
@@ -34,18 +34,32 @@ class FridgeCard extends React.Component {
     const days = (expiration - today) / 86400000;
     switch (true) {
       case days < 0:
-        return <Card.Content extra>This has expired!</Card.Content>;
+        return (
+          <Card.Content style={{ backgroundColor: 'orangered' }} extra>
+            This has expired!
+          </Card.Content>
+        );
       case days === 0:
-        return <Card.Content extra>This will expire today!</Card.Content>;
+        return (
+          <Card.Content style={{ backgroundColor: 'orange' }} extra>
+            This will expire today!
+          </Card.Content>
+        );
       case days === 1:
-        return <Card.Content extra>This will expire tomorrow!</Card.Content>;
+        return (
+          <Card.Content style={{ backgroundColor: 'yellow' }} extra>
+            This will expire tomorrow!
+          </Card.Content>
+        );
       case days < 7:
         return (
-          <Card.Content extra>This will expire in {days} day(s)</Card.Content>
+          <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
+            This will expire in {days} day(s)
+          </Card.Content>
         );
       default:
         return (
-          <Card.Content extra>
+          <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
             This will expire in more than 7 days
           </Card.Content>
         );
@@ -55,16 +69,24 @@ class FridgeCard extends React.Component {
     return (
       <Swipeable onSwiped={this.swiped}>
         {this.state.delete ? (
-          <Card style={{ marginTop: '10px' }} fluid onClick={this.undo}>
+          <Card style={{ marginTop: '20px' }} fluid onClick={this.undo}>
             <Card.Content>
               <Card.Header>Undo</Card.Header>
             </Card.Content>
           </Card>
         ) : (
-          <Card style={{ marginTop: '10px' }} fluid>
-            <Image src={this.props.item.ingredient.image} />
+          <Card style={{ marginTop: '20px' }} fluid>
             <Card.Content>
-              <Card.Header>{this.props.item.ingredient.name}</Card.Header>
+              <Grid>
+              <Grid.Column width={7}>
+              <Image size='medium'src={this.props.item.ingredient.image} />
+              </Grid.Column>
+              <Grid.Column width={7}>
+              <Card.Header>
+                {capitalize(this.props.item.ingredient.name)}
+              </Card.Header>
+              </Grid.Column>
+              </Grid>
             </Card.Content>
             {this.expireCheck(this.props.item.expirationDate)}
           </Card>
@@ -72,6 +94,11 @@ class FridgeCard extends React.Component {
       </Swipeable>
     );
   }
+}
+
+const capitalize = (string) => {
+  let firstLetter = string[0]
+  return firstLetter.toUpperCase() + string.slice(1)
 }
 
 const mapStateToProps = state => ({});

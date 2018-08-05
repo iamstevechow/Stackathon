@@ -14,9 +14,12 @@ async function seed() {
   console.log('db synced!');
 
   const users = await Promise.all([
-    User.create({ email: 'cody@email.com', password: '123' }),
-    User.create({ email: 'murphy@email.com', password: '123' }),
-    User.create({ email: 'steve@steve.com', password: '123' })
+    User.create({
+      firstName: 'Stephen',
+      lastName: 'Chow',
+      email: 'steve@steve.com',
+      password: '123'
+    })
   ]);
   console.log(`seeded ${users.length} users`);
 
@@ -102,13 +105,13 @@ async function seed() {
   const fridges = await Promise.all([
     Fridge.create({
       expirationDate: new Date(),
-      userId: 3,
+      userId: 1,
       ingredientId: 1,
       quantity: 2
     }),
     Fridge.create({
       expirationDate: new Date(),
-      userId: 3,
+      userId: 1,
       ingredientId: 2,
       quantity: 3
     })
@@ -116,15 +119,15 @@ async function seed() {
   console.log(`seeded ${fridges.length} fridge items`);
   const savedRecipes = await Promise.all([
     SavedRecipe.create({
-      userId: 3,
+      userId: 1,
       recipeId: 1
     }),
     SavedRecipe.create({
-      userId: 3,
+      userId: 1,
       recipeId: 2
     }),
     SavedRecipe.create({
-      userId: 3,
+      userId: 1,
       recipeId: 3
     })
   ]);
