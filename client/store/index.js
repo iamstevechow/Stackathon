@@ -6,8 +6,9 @@ import user from './user';
 import fridge from './fridge';
 import recipes from './recipes';
 import ingredients from './ingredients';
+import image from './image';
 
-const reducer = combineReducers({ user, fridge, recipes, ingredients });
+const reducer = combineReducers({ user, fridge, recipes, ingredients, image });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

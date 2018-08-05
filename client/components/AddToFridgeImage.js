@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import history from '../history';
 import { addToFridge } from '../store/fridge';
+import { addImage } from '../store/image';
 import { fetchIngredients } from '../store/ingredients';
 import { Checkbox, Dropdown, Button } from 'semantic-ui-react';
-import pluralize from 'pluralize';
+import Camera from 'react-camera';
+import ImageCompressor from 'image-compressor.js';
 
 const monthOptions = [
   { value: 0, text: 'January' },
@@ -35,152 +37,67 @@ const daysCalculator = (month, year) => {
   }
 };
 
-const setUpSpeech = () => {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.onstart = function() {
-    console.log(
-      'Voice recognition activated. Try speaking into the microphone.'
-    );
-  };
-
-  recognition.onspeechend = function() {
-    console.log(
-      'You were quiet for a while so voice recognition turned itself off.'
-    );
-  };
-
-  recognition.onerror = function(event) {
-    if (event.error == 'no-speech') {
-      console.log('No speech was detected. Try again.');
-    }
-  };
-  return recognition;
+const style = {
+  preview: {
+    position: 'relative'
+  },
+  captureContainer: {
+    display: 'flex',
+    position: 'absolute',
+    justifyContent: 'center',
+    zIndex: 1,
+    bottom: 0,
+    width: '100%'
+  },
+  captureButton: {
+    backgroundColor: '#fff',
+    borderRadius: '50%',
+    height: 56,
+    width: 56,
+    color: '#000',
+    margin: 20
+  },
+  captureImage: {
+    width: '100%'
+  }
 };
 
-class AddToFridgeVoice extends React.Component {
+class AddToFridgeImage extends React.Component {
   constructor() {
     super();
     const today = new Date();
     this.state = {
-      text: '',
-      voice: null,
       ingredientId: null,
       quantity: 1,
       expirationDate: today.getDate(),
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
       useDefaultDate: true,
-      dateRequest: ''
+      imgSrc: ''
     };
-    this.turnOnSpeech = this.turnOnSpeech.bind(this);
+    this.takePicture = this.takePicture.bind(this);
   }
   componentDidMount() {
     this.props.fetchIngredients();
-    window.speechSynthesis.onvoiceschanged = () => {
-      let englishVoice = window.speechSynthesis
-        .getVoices()
-        .filter(function(voice) {
-          return voice.name == 'Google UK English Female';
-        })[0];
-      this.setState({ voice: englishVoice });
-    };
   }
-  turnOnSpeech() {
-    const recognition = setUpSpeech();
-    recognition.onresult = event => {
-      const current = event.resultIndex;
-      let transcript = event.results[current][0].transcript;
-      if (pluralize.isPlural(transcript)) {
-        transcript = pluralize.singular(transcript);
+  async takePicture() {
+    const blob = await this.camera.capture();
+    const compression = new ImageCompressor(blob, {
+      quality: 0.1,
+      success: async result => {
+        const imgSrc = await URL.createObjectURL(blob);
+        await this.props.addImage(imgSrc);
+      },
+      error(e) {
+        console.log(e.message);
       }
-      let found = this.props.ingredients.filter(ingredient => {
-        return ingredient.name === transcript;
-      })[0];
-      if (found) {
-        this.setState({ text: transcript, ingredientId: found.id });
-      } else {
-        this.setState({ text: 'Unrecognized. Please try again' });
-      }
-      const msg = new SpeechSynthesisUtterance();
-      if (this.state.voice) {
-        msg.voice = this.state.voice;
-      }
-      msg.voiceURI = 'native';
-      msg.volume = 1; // 0 to 1
-      msg.rate = 1; // 0.1 to 10
-      msg.pitch = 1; //0 to 2
-      msg.text =
-        this.state.text !== 'Unrecognized. Please try again'
-          ? `You said ${transcript}. When will it expire?`
-          : 'Unrecognized. Please try again';
-      msg.lang = 'en-US';
-
-      msg.onend = () => {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
-        if (this.state.text !== 'Unrecognized. Please try again') {
-          this.turnOnDateSpeech();
-          this.setState({
-            dateRequest: 'When will it expire?'
-          });
-        } else {
-          this.turnOnSpeech();
-        }
-      };
-
-      speechSynthesis.speak(msg);
+    });
+    const imgSrc = await URL.createObjectURL(blob);
+    this.img.src = imgSrc;
+    this.setState({ imgSrc: imgSrc });
+    this.img.onload = () => {
+      URL.revokeObjectURL(this.src);
     };
-    recognition.start();
-  }
-  turnOnDateSpeech() {
-    const recognition = setUpSpeech();
-    recognition.onresult = event => {
-      const current = event.resultIndex;
-      const transcript = event.results[current][0].transcript;
-      const splitTranscript = transcript.split(' ');
-      let year = parseInt(splitTranscript[2], 10);
-      let month = monthOptions.filter(option => {
-        return option.text === splitTranscript[0];
-      })[0];
-      let date = parseInt(splitTranscript[1], 10);
-      const msg = new SpeechSynthesisUtterance();
-      if (this.state.voice) {
-        msg.voice = this.state.voice;
-      }
-      msg.voiceURI = 'native';
-      msg.volume = 1; // 0 to 1
-      msg.rate = 1; // 0.1 to 10
-      msg.pitch = 1; //0 to 2
-      msg.text = `You said ${transcript}. Press submit to confirm`;
-      msg.lang = 'en-US';
-
-      let repeat = false;
-      const today = new Date();
-      if (month && date) {
-        this.setState({
-          useDefaultDate: false,
-          expirationDate: date,
-          expirationMonth: month.value,
-          expirationYear: year || today.getFullYear()
-        });
-      } else {
-        msg.text = 'Unrecognized Date. Please say Month, Date, Year';
-        repeat = true;
-      }
-
-      msg.onend = e => {
-        console.log('Finished in ' + event.elapsedTime + ' seconds.');
-        if (repeat) {
-          this.setState({
-            dateRequest: 'Unrecognized Date. Please say Month, Date, Year  '
-          });
-          this.turnOnDateSpeech();
-        }
-      };
-      speechSynthesis.speak(msg);
-    };
-    recognition.start();
   }
   render() {
     const dayArray = [];
@@ -197,12 +114,26 @@ class AddToFridgeVoice extends React.Component {
         <center style={{ marginBottom: '20px' }}>
           <h2>Add to Fridge</h2>
         </center>
-        <center style={{ marginBottom: '20px' }}>
-          <h3>What do you want to add?</h3>
-        </center>
-        <Button fluid onClick={this.turnOnSpeech}>
-          Click to Speak
-        </Button>
+        <Camera
+          style={style.preview}
+          ref={cam => {
+            this.camera = cam;
+          }}
+        >
+          <div style={style.captureContainer} onClick={this.takePicture}>
+            <div style={style.captureButton} />
+          </div>
+        </Camera>
+        {this.props.image.results ? (
+          <h3>{this.props.image.results[0].tags[0].tag}</h3>
+        ) : null}
+        <img
+          id="blobImg"
+          style={style.captureImage}
+          ref={img => {
+            this.img = img;
+          }}
+        />
         {this.state.text ? (
           <h4>
             {this.state.text !== 'Unrecognized. Please try again'
@@ -317,12 +248,14 @@ class AddToFridgeVoice extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  ingredients: state.ingredients || []
+  ingredients: state.ingredients || [],
+  image: state.image
 });
 
 const mapDispatchToProps = dispatch => ({
   addToFridge: info => dispatch(addToFridge(info)),
+  addImage: img => dispatch(addImage(img)),
   fetchIngredients: () => dispatch(fetchIngredients())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToFridgeVoice);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToFridgeImage);

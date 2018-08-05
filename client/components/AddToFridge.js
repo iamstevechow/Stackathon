@@ -16,7 +16,7 @@ export const AddToFridge = () => {
           }}
           fluid
           color="red"
-          header="Add Using Barcode"
+          header="Barcode"
         />
         <Card
           style={{ height: '10vh' }}
@@ -25,7 +25,16 @@ export const AddToFridge = () => {
           }}
           fluid
           color="orange"
-          header="Add Using Voice"
+          header="Voice"
+        />
+        <Card
+          style={{ height: '10vh' }}
+          onClick={() => {
+            history.push('/fridgeimage');
+          }}
+          fluid
+          color="yellow"
+          header="Image Recognition"
         />
         <Card
           style={{ height: '10vh' }}
@@ -33,7 +42,7 @@ export const AddToFridge = () => {
             history.push('/fridgeform');
           }}
           fluid
-          color="yellow"
+          color="green"
           header="Manual Entry"
         />
       </Card.Group>

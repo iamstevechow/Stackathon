@@ -13,7 +13,8 @@ import {
   AddToFridge,
   AddToFridgeForm,
   AddToFridgeBarcode,
-  AddToFridgeVoice
+  AddToFridgeVoice,
+  AddToFridgeImage
 } from './components/index';
 import { me } from './store';
 
@@ -35,6 +36,7 @@ class Routes extends Component {
         <Route path="/fridgeform" component={AddToFridgeForm} />
         <Route path="/fridgebarcode" component={AddToFridgeBarcode} />
         <Route path="/fridgevoice" component={AddToFridgeVoice} />
+        <Route path="/fridgeimage" component={AddToFridgeImage} />
         <Route component={UserHome} />
       </Switch>
     ) : (

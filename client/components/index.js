@@ -16,3 +16,4 @@ export { default as AddToFridgeBarcode } from './AddToFridgeBarcode';
 export { default as BarcodeScanner } from './BarcodeScanner';
 export { default as BarcodeResult } from './BarcodeResult';
 export { default as AddToFridgeVoice } from './AddToFridgeVoice';
+export { default as AddToFridgeImage } from './AddToFridgeImage';

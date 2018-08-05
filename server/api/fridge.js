@@ -26,9 +26,10 @@ router.put('/add', async (req, res, next) => {
   try {
     const ingredient = await Ingredient.findById(req.body.ingredientId);
     let today = new Date();
-    let expiration = (req.body.expirationTime || req.body.expirationTime===0)
-      ? addDays(today, req.body.expirationTime)
-      : addDays(today, ingredient.expiration);
+    let expiration =
+      req.body.expirationTime || req.body.expirationTime === 0
+        ? addDays(today, req.body.expirationTime)
+        : addDays(today, ingredient.expiration);
     await Fridge.create({
       quantity: req.body.quantity,
       userId: req.body.userId,
