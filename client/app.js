@@ -31,7 +31,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="home" />
+            <Icon color="green" name="home" />
             Home
           </Menu.Item>
           <Menu.Item
@@ -40,7 +40,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="box" />
+            <Icon color="blue" name="box" />
             My Fridge
           </Menu.Item>
           <Menu.Item
@@ -49,7 +49,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="remove from calendar" />
+            <Icon color="orange" name="remove from calendar" />
             New Recipe
           </Menu.Item>
           <Menu.Item
@@ -58,7 +58,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="book" />
+            <Icon color="yellow" name="book" />
             My Recipes
           </Menu.Item>
           <Menu.Item
@@ -67,7 +67,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="archive" />
+            <Icon color="purple" name="archive" />
             My Cooking History
           </Menu.Item>
           <Menu.Item
@@ -76,7 +76,7 @@ class App extends React.Component {
               this.setState({ visible: false });
             }}
           >
-            <Icon name="edit" />
+            <Icon color="grey" name="edit" />
             My Preferences
           </Menu.Item>
         </Sidebar>

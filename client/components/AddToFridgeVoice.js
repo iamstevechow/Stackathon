@@ -3,7 +3,14 @@ import { connect } from 'react-redux';
 import history from '../history';
 import { addToFridge } from '../store/fridge';
 import { fetchIngredients } from '../store/ingredients';
-import { Checkbox, Dropdown, Button } from 'semantic-ui-react';
+import {
+  Checkbox,
+  Dropdown,
+  Button,
+  Modal,
+  Header,
+  Icon
+} from 'semantic-ui-react';
 import pluralize from 'pluralize';
 
 const monthOptions = [
@@ -72,9 +79,12 @@ class AddToFridgeVoice extends React.Component {
       expirationMonth: today.getMonth(),
       expirationYear: today.getFullYear(),
       useDefaultDate: true,
-      dateRequest: ''
+      dateRequest: '',
+      modalOpen: false
     };
     this.turnOnSpeech = this.turnOnSpeech.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   componentDidMount() {
     this.props.fetchIngredients();
@@ -88,8 +98,10 @@ class AddToFridgeVoice extends React.Component {
     };
   }
   turnOnSpeech() {
+    this.handleOpen();
     const recognition = setUpSpeech();
     recognition.onresult = event => {
+      this.handleClose();
       const current = event.resultIndex;
       let transcript = event.results[current][0].transcript;
       if (pluralize.isPlural(transcript)) {
@@ -135,8 +147,10 @@ class AddToFridgeVoice extends React.Component {
     recognition.start();
   }
   turnOnDateSpeech() {
+    this.handleOpen();
     const recognition = setUpSpeech();
     recognition.onresult = event => {
+      this.handleClose();
       const current = event.resultIndex;
       const transcript = event.results[current][0].transcript;
       const splitTranscript = transcript.split(' ');
@@ -183,6 +197,9 @@ class AddToFridgeVoice extends React.Component {
     };
     recognition.start();
   }
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
   render() {
     const dayArray = [];
     for (
@@ -195,6 +212,22 @@ class AddToFridgeVoice extends React.Component {
     }
     return (
       <React.Fragment>
+        <Modal
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          basic
+          size="small"
+        >
+          <Header icon="microphone" />
+          <Modal.Content>
+            <h3>Currently listening...</h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="red" onClick={this.handleClose} inverted>
+              <Icon name="x" /> Cancel
+            </Button>
+          </Modal.Actions>
+        </Modal>
         <center style={{ marginBottom: '20px' }}>
           <h2>Add to Fridge</h2>
         </center>

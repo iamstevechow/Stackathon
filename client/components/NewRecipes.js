@@ -47,8 +47,20 @@ class NewRecipes extends Component {
     await this.props.fetchFridge(this.props.user.id);
     await this.props.fetchRecipes(this.props.user.id);
     if (this.props.fridge.length > 0) {
+      const simplifyDate = date => {
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        return new Date(year, month, day);
+      };
+      const ingredientsArray = this.props.fridge.filter(ingredient => {
+        const today = simplifyDate(new Date());
+        const expiration = simplifyDate(new Date(ingredient.expirationDate));
+        const days = (expiration - today) / 86400000;
+        return days >= 0;
+      });
       await this.props.edamameRecipes({
-        q: this.props.fridge[0].ingredient.name
+        q: ingredientsArray[0].ingredient.name
       });
     } else {
       this.setState({ noQuery: true });
