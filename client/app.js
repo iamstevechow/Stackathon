@@ -1,6 +1,6 @@
 import React from 'react';
 import history from './history';
-import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import { Icon, Menu, Segment, Sidebar, Divider } from 'semantic-ui-react';
 import { Navigation } from './components';
 import Routes from './routes';
 
@@ -84,6 +84,7 @@ class App extends React.Component {
         <Sidebar.Pusher dimmed={this.state.visible}>
           <Segment basic>
             <Navigation handleMenuClick={this.handleMenuClick} />
+            <Divider/>
             <Routes />
           </Segment>
         </Sidebar.Pusher>

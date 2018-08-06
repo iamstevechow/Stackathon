@@ -94,6 +94,7 @@ class NewRecipes extends Component {
             <h3>Please add something to your fridge before viewing recipes.</h3>
             <Button
               fluid
+              color='orange'
               type="submit"
               onClick={() => {
                 history.push('/addtofridge');

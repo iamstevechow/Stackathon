@@ -42,6 +42,7 @@ class MyRecipes extends Component {
             </center>
             <Button
               fluid
+              color='orange'
               type="submit"
               onClick={() => {
                 history.push('/newrecipes');
@@ -62,6 +63,7 @@ class MyRecipes extends Component {
         {this.state.del.length > 0 ? (
           <Button
             style={{ marginTop: '10px' }}
+            color='orange'
             onClick={async () => {
               await this.props.removeFromRecipes(
                 this.state.del,
