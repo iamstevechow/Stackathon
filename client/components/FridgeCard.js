@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Image, Dropdown, Grid} from 'semantic-ui-react';
+import { Card, Image, Dropdown, Grid } from 'semantic-ui-react';
 import Swipeable from 'react-swipeable';
 
 class FridgeCard extends React.Component {
@@ -36,31 +36,31 @@ class FridgeCard extends React.Component {
       case days < 0:
         return (
           <Card.Content style={{ backgroundColor: 'orangered' }} extra>
-            This item has expired!
+            <h4>This item has expired!</h4>
           </Card.Content>
         );
       case days === 0:
         return (
           <Card.Content style={{ backgroundColor: 'orange' }} extra>
-            This item will expire today!
+            <h4>This item will expire today!</h4>
           </Card.Content>
         );
       case days === 1:
         return (
           <Card.Content style={{ backgroundColor: 'yellow' }} extra>
-            This item will expire tomorrow!
+            <h4>This item will expire tomorrow!</h4>
           </Card.Content>
         );
       case days < 7:
         return (
           <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
-            This item will expire in {days} day(s)
+            <h4>This item will expire in {days} day(s)</h4>
           </Card.Content>
         );
       default:
         return (
           <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
-            This item will expire in more than 7 days
+            <h4>This item will expire in more than 7 days</h4>
           </Card.Content>
         );
     }
@@ -78,14 +78,14 @@ class FridgeCard extends React.Component {
           <Card style={{ marginTop: '20px' }} fluid>
             <Card.Content>
               <Grid>
-              <Grid.Column width={7}>
-              <Image size='medium'src={this.props.item.ingredient.image} />
-              </Grid.Column>
-              <Grid.Column width={7}>
-              <Card.Header>
-                {capitalize(this.props.item.ingredient.name)}
-              </Card.Header>
-              </Grid.Column>
+                <Grid.Column width={7}>
+                  <Image size="medium" src={this.props.item.ingredient.image} />
+                </Grid.Column>
+                <Grid.Column width={7}>
+                  <Card.Header>
+                    {capitalize(this.props.item.ingredient.name)}
+                  </Card.Header>
+                </Grid.Column>
               </Grid>
             </Card.Content>
             {this.expireCheck(this.props.item.expirationDate)}
@@ -96,10 +96,10 @@ class FridgeCard extends React.Component {
   }
 }
 
-const capitalize = (string) => {
-  let firstLetter = string[0]
-  return firstLetter.toUpperCase() + string.slice(1)
-}
+const capitalize = string => {
+  let firstLetter = string[0];
+  return firstLetter.toUpperCase() + string.slice(1);
+};
 
 const mapStateToProps = state => ({});
 

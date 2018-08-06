@@ -44,6 +44,16 @@ export const logout = () => async dispatch => {
   }
 };
 
+export const updateUser = info => async dispatch => {
+  try {
+    const response = await axios.put('/api/users/', info);
+    const user = response.data;
+    dispatch(getUser(user));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:

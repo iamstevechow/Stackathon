@@ -15,3 +15,20 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.put('/', async (req, res, next) => {
+  try {
+    const newUser = await User.findById(req.body.id);
+    let firstName =
+      req.body.firstName[0].toUpperCase() + req.body.firstName.slice(1);
+    let lastName =
+      req.body.lastName[0].toUpperCase() + req.body.lastName.slice(1);
+    await newUser.update({
+      firstName: firstName,
+      lastName: lastName
+    });
+    res.send(newUser);
+  } catch (err) {
+    next(err);
+  }
+});
