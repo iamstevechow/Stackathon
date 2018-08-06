@@ -175,12 +175,14 @@ class AddToFridgeImage extends React.Component {
               ? this.props.addToFridge({
                   userId: this.props.user.id,
                   ingredientName: this.state.text,
-                  quantity: this.state.quantity
+                  quantity: this.state.quantity,
+                  url: this.props.url
                 })
               : this.props.addToFridge({
                   userId: this.props.user.id,
                   ingredientName: this.state.text,
                   quantity: this.state.quantity,
+                  url: this.props.url,
                   expirationTime: (expiration - simplifyDate(today)) / 86400000
                 });
             history.push('/fridge');
@@ -263,7 +265,8 @@ class AddToFridgeImage extends React.Component {
 const mapStateToProps = state => ({
   user: state.user,
   ingredients: state.ingredients || [],
-  image: state.image
+  image: state.image.arr,
+  url: state.image.url
 });
 
 const mapDispatchToProps = dispatch => ({

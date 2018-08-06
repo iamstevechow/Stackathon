@@ -17,7 +17,7 @@ router.put('/', async (req, res, next) => {
       });
       app.models.predict('bd367be194cf45149e75f01d59f77ba7', result.url).then(
         function(response) {
-          res.send(response.outputs);
+          res.send({value: response.outputs, url:result.url});
         },
         function(err) {
           console.log(err);

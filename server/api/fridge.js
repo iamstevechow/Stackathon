@@ -38,7 +38,8 @@ router.put('/add', async (req, res, next) => {
       ingredient = await Ingredient.create({
         name: req.body.ingredientName,
         image: 'test',
-        expiration: 3
+        expiration: 3,
+        image: req.body.url
       });
     }
     let today = new Date();
