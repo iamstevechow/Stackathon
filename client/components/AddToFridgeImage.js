@@ -86,16 +86,13 @@ class AddToFridgeImage extends React.Component {
     const compression = new ImageCompressor(blob, {
       quality: 0.2,
       success: async result => {
-        const imgSrc = await URL.createObjectURL(result);
-        let file = new File([result], 'uploaded-image.jpg', {
-          type: 'image/jpeg',
-          lastModified: Date.now()
-        });
-        var objectURL = window.URL.createObjectURL(file);
-
-        await this.props.addImage(
-          'https://cdn.shopify.com/s/files/1/1078/0310/products/fruit-banana-dole-1_1024x1024.jpg?v=1500709708'
-        );
+        console.log(result)
+        var reader = new FileReader();
+ reader.readAsDataURL(blob);
+ reader.onloadend = () => {
+     let base64data = reader.result;
+     this.props.addImage(base64data)
+ }
       },
       error(e) {
         console.log(e.message);

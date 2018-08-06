@@ -6,9 +6,9 @@ const defaultImage = [];
 
 const getImage = image => ({ type: GET_IMAGE, image });
 
-export const addImage = img => async dispatch => {
+export const addImage = blob => async dispatch => {
   try {
-    const res = await axios.put('/api/image/', { img });
+    const res = await axios.put('/api/image/', { blob });
     const value = res.data[0].data.concepts
     dispatch(getImage(value));
   } catch (error) {

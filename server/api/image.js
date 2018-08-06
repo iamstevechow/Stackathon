@@ -9,7 +9,8 @@ module.exports = router;
 
 router.put('/', async (req, res, next) => {
   try {
-    cloudinary.uploader.upload(req.body.img, result => {
+    let base64 = req.body.blob
+    cloudinary.uploader.upload(base64, result => {
       console.log(result);
       const app = new Clarifai.App({
         apiKey: process.env.CLARIFAI
