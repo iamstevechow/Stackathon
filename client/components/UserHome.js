@@ -56,7 +56,7 @@ class UserHome extends React.Component {
       } else       if (transcript.indexOf('history') !== -1) {
         msg.text ='Here is your cooking history'
         msg.onend = () => {
-          history.push('/history');
+          history.push('/cookinghistory');
         };
       }
      else       if (transcript.indexOf('preferences') !== -1) {
