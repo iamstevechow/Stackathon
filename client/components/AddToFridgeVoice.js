@@ -42,7 +42,7 @@ const daysCalculator = (month, year) => {
   }
 };
 
-const setUpSpeech = () => {
+export const setUpSpeech = () => {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
@@ -107,14 +107,6 @@ class AddToFridgeVoice extends React.Component {
       if (pluralize.isPlural(transcript)) {
         transcript = pluralize.singular(transcript);
       }
-      // let found = this.props.ingredients.filter(ingredient => {
-      //   return ingredient.name === transcript;
-      // })[0];
-      // if (found) {
-      //   this.setState({ text: transcript, ingredientId: found.id });
-      // } else {
-      //   this.setState({ text: 'Unrecognized. Please try again' });
-      // }
       this.setState({ text: transcript });
       const msg = new SpeechSynthesisUtterance();
       if (this.state.voice) {

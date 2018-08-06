@@ -21,6 +21,7 @@ class CookingHistory extends Component {
               <h3>You have no cooking history!</h3>
             </center>
             <Button
+            color='orange'
               fluid
               type="submit"
               onClick={() => {

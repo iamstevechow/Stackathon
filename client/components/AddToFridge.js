@@ -15,7 +15,7 @@ export const AddToFridge = () => {
             history.push('/fridgebarcode');
           }}
           fluid
-          color="red"
+          color="green"
           header="Barcode"
         />
         <Card
@@ -24,7 +24,7 @@ export const AddToFridge = () => {
             history.push('/fridgevoice');
           }}
           fluid
-          color="orange"
+          color="green"
           header="Voice"
         />
         <Card
@@ -33,7 +33,7 @@ export const AddToFridge = () => {
             history.push('/fridgeimage');
           }}
           fluid
-          color="yellow"
+          color="green"
           header="Image Recognition"
         />
         <Card
