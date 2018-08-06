@@ -42,7 +42,7 @@ class RecipeCard extends React.Component {
                 rel="noopener noreferrer"
                 href={this.props.item.recipe.url}
               >
-                <Button onClick={()=>{this.props.addToHistory({
+                <Button color='green'onClick={()=>{this.props.addToHistory({
                   userId: this.props.user.id,
                   recipeId: this.props.item.recipe.id
                 })}} fluid type="submit">

@@ -26,17 +26,18 @@ const OneRecipe = props => {
                 props.changeButtonState('added');
               }, 500);
             }}
+            color='orange'
             type="submit"
           >
             Add to My Recipe Book
           </Button>
         );
       case 'loading':
-        return <Button loading />;
+        return <Button color='orange'loading />;
       case 'added':
-        return <Button>Saved!</Button>;
+        return <Button color='orange'>Saved!</Button>;
       case 'already saved':
-        return <Button>Already Saved in Your Recipe Book</Button>;
+        return <Button disabled >Already Saved in Your Recipe Book</Button>;
       default:
         return null;
     }
@@ -52,7 +53,7 @@ const OneRecipe = props => {
         rel="noopener noreferrer"
         href={props.item.url}
       >
-                <Button onClick={()=>{
+                <Button color='green'onClick={()=>{
                                 const uri = props.item.uri;
                                 const edamameIdIndex = uri.indexOf('recipe');
                                 const edamameId = uri.slice(edamameIdIndex + 7);

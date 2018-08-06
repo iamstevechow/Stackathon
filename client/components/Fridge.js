@@ -41,6 +41,7 @@ class Fridge extends Component {
           </center>
         )}
         <Button
+        color='green'
           style={{ marginTop: '10px' }}
           onClick={() => {
             history.push('/addtofridge');
@@ -49,18 +50,6 @@ class Fridge extends Component {
         >
           Add Item
         </Button>
-        {this.props.fridge.length ? (
-          <Button
-            style={{ marginTop: '10px' }}
-            fluid
-            type="submit"
-            onClick={() => {
-              history.push('/newrecipes');
-            }}
-          >
-            Check out some recipes!
-          </Button>
-        ) : null}
         {this.props.fridge.map(item => (
           <FridgeCard
             addToDelete={this.addToDelete}
@@ -71,6 +60,7 @@ class Fridge extends Component {
         ))}
         {this.state.del.length > 0 ? (
           <Button
+          color='orange'
             style={{ marginTop: '10px' }}
             onClick={async () => {
               await this.props.removeFromFridge(

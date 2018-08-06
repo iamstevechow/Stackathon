@@ -36,7 +36,7 @@ router.put('/add', async (req, res, next) => {
       });
     }
     const recipeHistory = await RecipeHistory.findAll({where: {
-      userId: req.body.id
+      userId: req.body.userId
     },       include: [{ model: Recipe }]});
     res.json(recipeHistory);
   } catch (err) {

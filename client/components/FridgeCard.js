@@ -36,31 +36,31 @@ class FridgeCard extends React.Component {
       case days < 0:
         return (
           <Card.Content style={{ backgroundColor: 'orangered' }} extra>
-            This has expired!
+            This item has expired!
           </Card.Content>
         );
       case days === 0:
         return (
           <Card.Content style={{ backgroundColor: 'orange' }} extra>
-            This will expire today!
+            This item will expire today!
           </Card.Content>
         );
       case days === 1:
         return (
           <Card.Content style={{ backgroundColor: 'yellow' }} extra>
-            This will expire tomorrow!
+            This item will expire tomorrow!
           </Card.Content>
         );
       case days < 7:
         return (
           <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
-            This will expire in {days} day(s)
+            This item will expire in {days} day(s)
           </Card.Content>
         );
       default:
         return (
           <Card.Content style={{ backgroundColor: 'lightgreen' }} extra>
-            This will expire in more than 7 days
+            This item will expire in more than 7 days
           </Card.Content>
         );
     }
