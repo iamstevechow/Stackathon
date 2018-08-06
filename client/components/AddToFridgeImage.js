@@ -130,6 +130,13 @@ class AddToFridgeImage extends React.Component {
             <div style={style.captureButton} />
           </div>
         </Camera>
+        <img
+          id="blobImg"
+          style={style.captureImage}
+          ref={img => {
+            this.img = img;
+          }}
+        />
         {this.state.text ? <h3>{this.state.text}</h3> : null}
         {this.props.image.length > 0 ? (
           <Dropdown
@@ -149,13 +156,6 @@ class AddToFridgeImage extends React.Component {
             }))}
           />
         ) : null}
-        <img
-          id="blobImg"
-          style={style.captureImage}
-          ref={img => {
-            this.img = img;
-          }}
-        />
         <form
           onSubmit={event => {
             const simplifyDate = date => {
