@@ -4,6 +4,8 @@ import { Card, Button, Modal, Header, Icon} from 'semantic-ui-react';
 import history from '../history';
 import {setUpSpeech} from './AddToFridgeVoice'
 
+let recognition
+
 class UserHome extends React.Component {
   constructor() {
     super();
@@ -26,7 +28,7 @@ class UserHome extends React.Component {
   }
   turnOnSpeech() {
     this.handleOpen();
-    const recognition = setUpSpeech();
+    recognition = setUpSpeech();
     recognition.onresult = event => {
       this.handleClose();
       const current = event.resultIndex;
@@ -87,7 +89,9 @@ class UserHome extends React.Component {
   }
   handleOpen = () => this.setState({ modalOpen: true });
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleClose = () => {
+    recognition.stop()
+    this.setState({ modalOpen: false })};
   render() {
   const { user } = this.props;
   return (

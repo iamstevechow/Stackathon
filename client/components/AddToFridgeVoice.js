@@ -42,6 +42,8 @@ const daysCalculator = (month, year) => {
   }
 };
 
+let recognition
+
 export const setUpSpeech = () => {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -99,7 +101,7 @@ class AddToFridgeVoice extends React.Component {
   }
   turnOnSpeech() {
     this.handleOpen();
-    const recognition = setUpSpeech();
+    recognition = setUpSpeech();
     recognition.onresult = event => {
       this.handleClose();
       const current = event.resultIndex;
@@ -191,7 +193,9 @@ class AddToFridgeVoice extends React.Component {
   }
   handleOpen = () => this.setState({ modalOpen: true });
 
-  handleClose = () => this.setState({ modalOpen: false });
+  handleClose = () => {
+    recognition.stop()
+    this.setState({ modalOpen: false })};
   render() {
     const dayArray = [];
     for (
