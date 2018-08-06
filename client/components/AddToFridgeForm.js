@@ -177,7 +177,7 @@ class AddToFridgeForm extends React.Component {
               text: elem
             }))}
           />
-          <Button fluid type="submit">Submit</Button>
+          <Button positive fluid type="submit">Submit</Button>
         </form>
       </React.Fragment>
     );

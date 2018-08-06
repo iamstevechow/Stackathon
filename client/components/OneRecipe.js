@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Image, Card, Button } from 'semantic-ui-react';
 import { addToRecipes } from '../store/recipes';
+import {addToHistory} from '../store/history'
 
 const OneRecipe = props => {
   const buttonState = button => {
@@ -51,9 +52,19 @@ const OneRecipe = props => {
         rel="noopener noreferrer"
         href={props.item.url}
       >
-        <Button fluid type="submit">
-          Cook Now!
-        </Button>
+                <Button onClick={()=>{
+                                const uri = props.item.uri;
+                                const edamameIdIndex = uri.indexOf('recipe');
+                                const edamameId = uri.slice(edamameIdIndex + 7);
+                                props.addToHistory({
+                userId: props.user.id,
+                edamameId: edamameId,
+                label: props.item.label,
+                image: props.item.image,
+                url: props.item.url
+                })}} fluid type="submit">
+                  Cook Now!
+                </Button>
       </a>
     </Card>
   );
@@ -64,7 +75,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addToRecipes: ids => dispatch(addToRecipes(ids))
+  addToRecipes: ids => dispatch(addToRecipes(ids)),
+  addToHistory: info => dispatch(addToHistory(info))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OneRecipe);

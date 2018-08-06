@@ -254,7 +254,7 @@ class AddToFridgeImage extends React.Component {
               text: elem
             }))}
           />
-          <Button fluid type="submit">
+          <Button positive fluid type="submit">
             Submit
           </Button>
         </form>

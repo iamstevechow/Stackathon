@@ -234,7 +234,7 @@ class AddToFridgeVoice extends React.Component {
         <center style={{ marginBottom: '20px' }}>
           <h3>What do you want to add?</h3>
         </center>
-        <Button fluid onClick={this.turnOnSpeech}>
+        <Button color='orange' fluid onClick={this.turnOnSpeech}>
           Click to Speak
         </Button>
         {this.state.text ? (
@@ -340,7 +340,7 @@ class AddToFridgeVoice extends React.Component {
               text: elem
             }))}
           />
-          <Button fluid type="submit">
+          <Button positive fluid type="submit">
             Submit
           </Button>
         </form>

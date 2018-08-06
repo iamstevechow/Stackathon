@@ -5,6 +5,7 @@ import { addToFridge } from '../store/fridge';
 import { fetchIngredients } from '../store/ingredients';
 import BarcodeScanner from './BarcodeScanner';
 import BarcodeResult from './BarcodeResult';
+import { Button } from 'semantic-ui-react';
 
 class AddToFridgeBarcode extends React.Component {
   constructor() {
@@ -28,9 +29,9 @@ class AddToFridgeBarcode extends React.Component {
         <center style={{ marginBottom: '20px' }}>
           <h2>Add to Fridge</h2>
         </center>
-        <button onClick={this.scan}>
-          {this.state.scanning ? 'Stop Scanner' : 'Turn on Scanner'}
-        </button>
+        <Button color='orange' fluid onClick={this.scan}>
+          {this.state.scanning ? 'Stop Scanner' : 'Click to Scan'}
+        </Button>
 
         <BarcodeResult result={this.state.results} />
 

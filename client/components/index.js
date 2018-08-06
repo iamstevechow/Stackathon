@@ -8,6 +8,7 @@ export { default as NewRecipes } from './NewRecipes';
 export { default as MyRecipes } from './MyRecipes';
 export { default as RecipeCard } from './RecipeCard';
 export { default as CookingHistory } from './CookingHistory';
+export { default as HistoryCard } from './HistoryCard';
 export { default as Preferences } from './Preferences';
 export { default as OneRecipe } from './OneRecipe';
 export { default as AddToFridge } from './AddToFridge';
