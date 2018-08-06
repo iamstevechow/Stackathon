@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Image, Dropdown, Grid, Button} from 'semantic-ui-react';
-import Swipeable from 'react-swipeable';
 import {addToHistory} from '../store/history'
 
 const monthOptions = [
@@ -20,33 +19,9 @@ const monthOptions = [
 ];
 
 class HistoryCard extends React.Component {
-  constructor() {
-    super();
-    this.state = { delete: false };
-    this.swiped = this.swiped.bind(this);
-    this.undo = this.undo.bind(this);
-  }
-  swiped(e, deltaX, deltaY, isFlick, velocity) {
-    if (deltaX < -150) {
-      this.setState({ delete: true });
-      this.props.addToDelete(this.props.item.id);
-    }
-  }
-  undo() {
-    this.setState({ delete: false });
-    this.props.removeFromDelete(this.props.item.id);
-  }
   render() {
     const cookDate = new Date(this.props.item.cookingDate)
     return (
-      <Swipeable onSwiped={this.swiped}>
-        {this.state.delete ? (
-          <Card style={{ marginTop: '20px' }} fluid onClick={this.undo}>
-            <Card.Content>
-              <Card.Header>Undo</Card.Header>
-            </Card.Content>
-          </Card>
-        ) : (
           <Card style={{ marginTop: '20px' }} fluid>
             <Card.Content>
               <Grid>
@@ -78,9 +53,7 @@ class HistoryCard extends React.Component {
               </a>
             </Card.Content>
           </Card>
-        )}
-      </Swipeable>
-    );
+        )
   }
 }
 

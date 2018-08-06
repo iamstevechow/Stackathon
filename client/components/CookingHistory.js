@@ -6,24 +6,8 @@ import { Button } from 'semantic-ui-react';
 import history from '../history';
 
 class CookingHistory extends Component {
-  constructor() {
-    super();
-    this.state = {
-      del: []
-    };
-    this.addToDelete = this.addToDelete.bind(this);
-    this.removeFromDelete = this.removeFromDelete.bind(this);
-  }
   componentDidMount() {
     this.props.fetchHistory(this.props.user.id);
-  }
-  addToDelete(id) {
-    const del = this.state.del;
-    this.setState({ del: [...del, id] });
-  }
-  removeFromDelete(id) {
-    const del = this.state.del;
-    this.setState({ del: del.filter(elem => elem !== id) });
   }
   render() {
     return (
@@ -49,27 +33,10 @@ class CookingHistory extends Component {
         )}
         {this.props.history.map(item => (
           <HistoryCard
-            addToDelete={this.addToDelete}
-            removeFromDelete={this.removeFromDelete}
             key={item.id}
             item={item}
           />
         ))}
-        {this.state.del.length > 0 ? (
-          <Button
-            style={{ marginTop: '10px' }}
-            onClick={async () => {
-              await this.props.removeFromRecipes(
-                this.state.del,
-                this.props.user.id
-              );
-              this.setState({ del: [] });
-            }}
-            fluid
-          >
-            Save Changes
-          </Button>
-        ) : null}
       </React.Fragment>
     );
   }
