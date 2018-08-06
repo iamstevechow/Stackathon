@@ -5,7 +5,7 @@ import { addToFridge } from '../store/fridge';
 import { addImage } from '../store/image';
 import { fetchIngredients } from '../store/ingredients';
 import { Checkbox, Dropdown, Button } from 'semantic-ui-react';
-import Camera from 'react-camera';
+import Camera from './Camera';
 import ImageCompressor from 'image-compressor.js';
 
 const monthOptions = [
@@ -86,13 +86,13 @@ class AddToFridgeImage extends React.Component {
     const compression = new ImageCompressor(blob, {
       quality: 0.2,
       success: async result => {
-        console.log(result)
+        console.log(result);
         var reader = new FileReader();
- reader.readAsDataURL(blob);
- reader.onloadend = () => {
-     let base64data = reader.result;
-     this.props.addImage(base64data)
- }
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          let base64data = reader.result;
+          this.props.addImage(base64data);
+        };
       },
       error(e) {
         console.log(e.message);
@@ -141,7 +141,7 @@ class AddToFridgeImage extends React.Component {
             selection
             onChange={(event, { value }) => {
               this.setState({ text: value });
-              console.log(this.state)
+              console.log(this.state);
             }}
             options={this.props.image.map(elem => ({
               value: elem.name,
